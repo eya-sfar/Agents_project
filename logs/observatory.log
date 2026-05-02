@@ -1,0 +1,548 @@
+2026-05-02 18:35:08 | INFO     | database.connection:init_db:76 - Initialising database schema...
+2026-05-02 18:37:11 | INFO     | database.connection:init_db:76 - Initialising database schema...
+2026-05-02 18:38:38 | INFO     | database.connection:init_db:76 - Initialising database schema...
+2026-05-02 18:40:58 | INFO     | database.connection:init_db:76 - Initialising database schema...
+2026-05-02 18:44:16 | INFO     | database.connection:init_db:76 - Initialising database schema...
+2026-05-02 18:44:29 | INFO     | database.connection:init_db:76 - Initialising database schema...
+2026-05-02 18:46:47 | INFO     | database.connection:init_db:76 - Initialising database schema...
+2026-05-02 18:48:32 | INFO     | database.connection:init_db:76 - Initialising database schema...
+2026-05-02 18:50:13 | INFO     | database.connection:init_db:76 - Initialising database schema...
+2026-05-02 18:50:54 | INFO     | database.connection:init_db:76 - Initialising database schema...
+2026-05-02 19:00:29 | INFO     | database.connection:init_db:76 - Initialising database schema...
+2026-05-02 19:00:29 | INFO     | database.connection:init_db:84 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 19:00:29 | INFO     | database.connection:init_db:85 - Database schema ready.
+2026-05-02 19:00:29 | INFO     | __main__:seed:82 - Seeding demo data …
+2026-05-02 19:00:29 | INFO     | __main__:seed:94 -   Labs: 5
+2026-05-02 19:00:29 | INFO     | __main__:seed:109 -   Researchers: 12
+2026-05-02 19:00:29 | INFO     | __main__:seed:121 -   Publications: 15
+2026-05-02 19:00:30 | INFO     | __main__:seed:132 -   Expertise: done
+2026-05-02 19:00:30 | INFO     | __main__:seed:135 - Running clustering …
+2026-05-02 19:00:30 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 19:00:30 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=4cfe6606-dcad-4854-a842-f6b45ae71f35)
+2026-05-02 19:00:38 | ERROR    | database.connection:get_session:50 - Database session error: Instance <Researcher at 0x208e8698c90> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2026-05-02 19:00:38 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run FAILED (Instance <Researcher at 0x208e8698c90> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)) — 0 records processed
+2026-05-02 19:04:53 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 19:04:53 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 19:04:53 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 19:04:53 | INFO     | __main__:seed:82 - Seeding demo data …
+2026-05-02 19:04:53 | INFO     | __main__:seed:94 -   Labs: 5
+2026-05-02 19:04:53 | INFO     | __main__:seed:109 -   Researchers: 12
+2026-05-02 19:04:53 | INFO     | __main__:seed:121 -   Publications: 15
+2026-05-02 19:04:53 | INFO     | __main__:seed:132 -   Expertise: done
+2026-05-02 19:04:53 | INFO     | __main__:seed:135 - Running clustering …
+2026-05-02 19:04:53 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 19:04:53 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=a1d67fd4-992d-4f9b-889c-692112ee6614)
+2026-05-02 19:05:00 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 4 clusters from 12 researchers.
+2026-05-02 19:05:00 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 12 records processed
+2026-05-02 19:05:00 | INFO     | __main__:seed:138 - Running collaboration advisor …
+2026-05-02 19:05:00 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 19:05:00 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=1edfa966-409a-4bac-b34b-e3cfa4241c73)
+2026-05-02 19:05:00 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 21 collaboration recommendations.
+2026-05-02 19:05:00 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 21 records processed
+2026-05-02 19:05:00 | INFO     | __main__:seed:141 - Running negotiator …
+2026-05-02 19:05:00 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 19:05:00 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=203fe060-bb32-47c1-b4bd-bd04eccca19a)
+2026-05-02 19:05:00 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 19:05:00 | INFO     | __main__:seed:144 - ✅ Demo data seeded successfully!
+2026-05-02 19:09:07 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 19:09:07 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 19:09:07 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 19:10:40 | INFO     | __main__:main:103 - Initialising database ...
+2026-05-02 19:10:40 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 19:10:40 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 19:10:40 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 19:10:40 | INFO     | agents.base_agent:__init__:23 - [AgentCoordinator] Initialized
+2026-05-02 19:10:40 | INFO     | agents.base_agent:__init__:23 - [AgentLabScraper] Initialized
+2026-05-02 19:10:40 | INFO     | agents.base_agent:__init__:23 - [AgentResearcherScraper] Initialized
+2026-05-02 19:10:40 | INFO     | agents.base_agent:__init__:23 - [AgentPublicationScraper] Initialized
+2026-05-02 19:10:40 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 19:10:40 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 19:10:40 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 19:10:40 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 19:10:40 | INFO     | agents.base_agent:_log_start:60 - [AgentCoordinator] Run started (id=59e9e70a-735e-437f-83f5-7957423287cc)
+2026-05-02 19:10:40 | INFO     | agents.agent_coordinator:run:67 - ============================================================
+2026-05-02 19:10:40 | INFO     | agents.agent_coordinator:run:68 - [AgentCoordinator] Pipeline START
+2026-05-02 19:10:40 | INFO     | agents.agent_coordinator:run:69 - ============================================================
+2026-05-02 19:10:40 | INFO     | agents.agent_coordinator:run:73 - [Phase 1] Data Collection
+2026-05-02 19:10:40 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentLabScraper
+2026-05-02 19:10:41 | INFO     | agents.base_agent:_log_start:60 - [AgentLabScraper] Run started (id=3d9a7889-96a1-4fbd-a0ef-be19d21db4ee)
+2026-05-02 19:10:41 | INFO     | agents.base_agent:_log_finish:71 - [AgentLabScraper] Run completed — 0 records processed
+2026-05-02 19:10:41 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentResearcherScraper
+2026-05-02 19:10:41 | INFO     | agents.base_agent:_log_start:60 - [AgentResearcherScraper] Run started (id=6f922cdb-7487-4520-b32e-067ff5bdfdd4)
+2026-05-02 19:10:41 | INFO     | agents.agent_researcher_scraper:run:82 - [AgentResearcherScraper] Searching by country: TN
+2026-05-02 19:10:42 | WARNING  | agents.agent_researcher_scraper:_paginate_authors:221 - [AgentResearcherScraper] Pagination error on page 1: 400 Client Error: Bad Request for url: https://api.openalex.org/authors?per-page=50&page=1&sort=cited_by_count%3Adesc&select=id%2Cdisplay_name%2Clast_known_institution%2Cworks_count%2Ccited_by_count%2Csummary_stats%2Cids&filter=last_known_institution.country_code%3ATN
+2026-05-02 19:10:42 | WARNING  | agents.agent_researcher_scraper:run:100 - [AgentResearcherScraper] No profiles discovered. Check your parameters.
+2026-05-02 19:10:42 | INFO     | agents.base_agent:_log_finish:71 - [AgentResearcherScraper] Run completed — 0 records processed
+2026-05-02 19:10:42 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentPublicationScraper
+2026-05-02 19:10:42 | INFO     | agents.base_agent:_log_start:60 - [AgentPublicationScraper] Run started (id=9c2db247-8406-49d9-8eb8-9f21da912ad1)
+2026-05-02 19:10:42 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Amira Bouaziz
+2026-05-02 19:10:44 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Karim Ben Ali
+2026-05-02 19:10:45 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Leila Mansouri
+2026-05-02 19:10:46 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Youssef Trabelsi
+2026-05-02 19:10:46 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Sonia Khelifi
+2026-05-02 19:10:47 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Mohamed Jarray
+2026-05-02 19:10:48 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Nadia Zouari
+2026-05-02 19:10:48 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Ali Ouertani
+2026-05-02 19:10:49 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Fatma Mejri
+2026-05-02 19:10:50 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Bilel Hamdi
+2026-05-02 19:10:50 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Rania Chaabane
+2026-05-02 19:10:51 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Omar Mabrouk
+2026-05-02 19:10:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentPublicationScraper] Run completed — 0 records processed
+2026-05-02 19:10:51 | INFO     | agents.agent_coordinator:run:98 - [Phase 2] Analysis
+2026-05-02 19:10:51 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentExpertiseMatcher
+2026-05-02 19:10:51 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=1676e205-d2a1-4750-929b-ffcd636e62e4)
+2026-05-02 19:10:52 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 12 records processed
+2026-05-02 19:10:52 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCluster
+2026-05-02 19:10:52 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=76624510-a76b-45e0-a6c1-cd407c0139b9)
+2026-05-02 19:11:01 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 12 researchers.
+2026-05-02 19:11:01 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 12 records processed
+2026-05-02 19:11:01 | INFO     | agents.agent_coordinator:run:107 - [Phase 3] Recommendations & Negotiation
+2026-05-02 19:11:01 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCollabAdvisor
+2026-05-02 19:11:01 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=cdec9e98-4cd6-40c0-854f-adeb77fb7121)
+2026-05-02 19:11:01 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 29 collaboration recommendations.
+2026-05-02 19:11:01 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 29 records processed
+2026-05-02 19:11:01 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentNegotiator
+2026-05-02 19:11:01 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=f7547b37-752d-427c-bb00-6d1e1f4ed93e)
+2026-05-02 19:11:01 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 19:11:01 | INFO     | agents.agent_coordinator:run:115 - ============================================================
+2026-05-02 19:11:01 | INFO     | agents.agent_coordinator:run:116 - [AgentCoordinator] Pipeline COMPLETE
+2026-05-02 19:11:01 | INFO     | agents.agent_coordinator:run:117 - Summary: {'labs': {'labs_created': 0}, 'researchers': {'created': 0, 'updated': 0}, 'publications': {'total_new_publications': 0}, 'expertise': {'researchers_processed': 12, 'expertise_entries': 21}, 'clusters': {'clusters': 8, 'researchers_clustered': 12}, 'collaborations': {'recommendations': 29}, 'negotiations': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 19:11:01 | INFO     | agents.agent_coordinator:run:118 - ============================================================
+2026-05-02 19:11:01 | INFO     | agents.base_agent:_log_finish:71 - [AgentCoordinator] Run completed — 0 records processed
+2026-05-02 19:16:32 | INFO     | __main__:main:103 - Initialising database ...
+2026-05-02 19:16:32 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 19:16:32 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 19:16:32 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 19:16:32 | INFO     | agents.base_agent:__init__:23 - [AgentCoordinator] Initialized
+2026-05-02 19:16:32 | INFO     | agents.base_agent:__init__:23 - [AgentLabScraper] Initialized
+2026-05-02 19:16:32 | INFO     | agents.base_agent:__init__:23 - [AgentResearcherScraper] Initialized
+2026-05-02 19:16:32 | INFO     | agents.base_agent:__init__:23 - [AgentPublicationScraper] Initialized
+2026-05-02 19:16:32 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 19:16:32 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 19:16:32 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 19:16:32 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 19:16:32 | INFO     | agents.base_agent:_log_start:60 - [AgentCoordinator] Run started (id=998e3243-f5f7-4bd1-830c-9858488158be)
+2026-05-02 19:16:32 | INFO     | agents.agent_coordinator:run:67 - ============================================================
+2026-05-02 19:16:32 | INFO     | agents.agent_coordinator:run:68 - [AgentCoordinator] Pipeline START
+2026-05-02 19:16:32 | INFO     | agents.agent_coordinator:run:69 - ============================================================
+2026-05-02 19:16:32 | INFO     | agents.agent_coordinator:run:73 - [Phase 1] Data Collection
+2026-05-02 19:16:32 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentLabScraper
+2026-05-02 19:16:32 | INFO     | agents.base_agent:_log_start:60 - [AgentLabScraper] Run started (id=506abdde-0036-4acc-aecf-b6807f557982)
+2026-05-02 19:16:32 | INFO     | agents.base_agent:_log_finish:71 - [AgentLabScraper] Run completed — 0 records processed
+2026-05-02 19:16:32 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentResearcherScraper
+2026-05-02 19:16:32 | INFO     | agents.base_agent:_log_start:60 - [AgentResearcherScraper] Run started (id=4f514ecc-dda7-407a-a3c6-908d6bebb0b9)
+2026-05-02 19:16:32 | INFO     | agents.agent_researcher_scraper:run:82 - [AgentResearcherScraper] Searching by country: TN
+2026-05-02 19:16:32 | WARNING  | utils.helpers:wrapper:24 - _paginate_authors attempt 1 failed: AgentResearcherScraper._paginate_authors() got an unexpected keyword argument 'filter'. Retrying in 2.0s...
+2026-05-02 19:16:34 | WARNING  | utils.helpers:wrapper:24 - _paginate_authors attempt 2 failed: AgentResearcherScraper._paginate_authors() got an unexpected keyword argument 'filter'. Retrying in 2.0s...
+2026-05-02 19:16:36 | ERROR    | utils.helpers:wrapper:22 - _paginate_authors failed after 3 attempts: AgentResearcherScraper._paginate_authors() got an unexpected keyword argument 'filter'
+2026-05-02 19:16:36 | INFO     | agents.base_agent:_log_finish:71 - [AgentResearcherScraper] Run FAILED (AgentResearcherScraper._paginate_authors() got an unexpected keyword argument 'filter') — 0 records processed
+2026-05-02 19:16:36 | ERROR    | agents.agent_coordinator:_run_agent:130 - [AgentCoordinator] AgentResearcherScraper failed: AgentResearcherScraper._paginate_authors() got an unexpected keyword argument 'filter'
+2026-05-02 19:16:36 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentPublicationScraper
+2026-05-02 19:16:36 | INFO     | agents.base_agent:_log_start:60 - [AgentPublicationScraper] Run started (id=dc4ef709-d919-4335-9b71-00efbb1684a2)
+2026-05-02 19:16:36 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Amira Bouaziz
+2026-05-02 19:16:37 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Karim Ben Ali
+2026-05-02 19:16:38 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Leila Mansouri
+2026-05-02 19:16:39 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Youssef Trabelsi
+2026-05-02 19:16:39 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Sonia Khelifi
+2026-05-02 19:16:40 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Mohamed Jarray
+2026-05-02 19:16:41 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Nadia Zouari
+2026-05-02 19:16:42 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Ali Ouertani
+2026-05-02 19:16:42 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Fatma Mejri
+2026-05-02 19:16:43 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Bilel Hamdi
+2026-05-02 19:16:44 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Rania Chaabane
+2026-05-02 19:16:44 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Omar Mabrouk
+2026-05-02 19:16:45 | INFO     | agents.base_agent:_log_finish:71 - [AgentPublicationScraper] Run completed — 0 records processed
+2026-05-02 19:16:45 | INFO     | agents.agent_coordinator:run:98 - [Phase 2] Analysis
+2026-05-02 19:16:45 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentExpertiseMatcher
+2026-05-02 19:16:45 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=d1018789-7a80-4877-93cb-ff5d88066420)
+2026-05-02 19:16:45 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 12 records processed
+2026-05-02 19:16:45 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCluster
+2026-05-02 19:16:45 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=cff5e404-0383-4ded-b919-95bfa173dc43)
+2026-05-02 19:16:51 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 12 researchers.
+2026-05-02 19:16:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 12 records processed
+2026-05-02 19:16:51 | INFO     | agents.agent_coordinator:run:107 - [Phase 3] Recommendations & Negotiation
+2026-05-02 19:16:51 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCollabAdvisor
+2026-05-02 19:16:51 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=26387722-2220-4ec6-96f0-af37d16c81a1)
+2026-05-02 19:16:51 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 29 collaboration recommendations.
+2026-05-02 19:16:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 29 records processed
+2026-05-02 19:16:51 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentNegotiator
+2026-05-02 19:16:51 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=344deca8-c668-4f9c-bacd-790096298185)
+2026-05-02 19:16:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 19:16:51 | INFO     | agents.agent_coordinator:run:115 - ============================================================
+2026-05-02 19:16:51 | INFO     | agents.agent_coordinator:run:116 - [AgentCoordinator] Pipeline COMPLETE
+2026-05-02 19:16:51 | INFO     | agents.agent_coordinator:run:117 - Summary: {'labs': {'labs_created': 0}, 'researchers': {'error': "AgentResearcherScraper._paginate_authors() got an unexpected keyword argument 'filter'"}, 'publications': {'total_new_publications': 0}, 'expertise': {'researchers_processed': 12, 'expertise_entries': 21}, 'clusters': {'clusters': 8, 'researchers_clustered': 12}, 'collaborations': {'recommendations': 29}, 'negotiations': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 19:16:51 | INFO     | agents.agent_coordinator:run:118 - ============================================================
+2026-05-02 19:16:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentCoordinator] Run completed — 0 records processed
+2026-05-02 19:23:50 | INFO     | __main__:main:103 - Initialising database ...
+2026-05-02 19:23:50 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 19:23:50 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 19:23:50 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 19:23:50 | INFO     | agents.base_agent:__init__:23 - [AgentCoordinator] Initialized
+2026-05-02 19:23:50 | INFO     | agents.base_agent:__init__:23 - [AgentLabScraper] Initialized
+2026-05-02 19:23:50 | INFO     | agents.base_agent:__init__:23 - [AgentResearcherScraper] Initialized
+2026-05-02 19:23:50 | INFO     | agents.base_agent:__init__:23 - [AgentPublicationScraper] Initialized
+2026-05-02 19:23:50 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 19:23:50 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 19:23:50 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 19:23:50 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 19:23:50 | INFO     | agents.base_agent:_log_start:60 - [AgentCoordinator] Run started (id=f0840a32-d9c5-4d9c-81f1-7c777d964fdd)
+2026-05-02 19:23:50 | INFO     | agents.agent_coordinator:run:67 - ============================================================
+2026-05-02 19:23:50 | INFO     | agents.agent_coordinator:run:68 - [AgentCoordinator] Pipeline START
+2026-05-02 19:23:50 | INFO     | agents.agent_coordinator:run:69 - ============================================================
+2026-05-02 19:23:50 | INFO     | agents.agent_coordinator:run:73 - [Phase 1] Data Collection
+2026-05-02 19:23:50 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentLabScraper
+2026-05-02 19:23:50 | INFO     | agents.base_agent:_log_start:60 - [AgentLabScraper] Run started (id=c02e094a-4683-4b21-9e57-14ce6adc88b0)
+2026-05-02 19:23:50 | INFO     | agents.base_agent:_log_finish:71 - [AgentLabScraper] Run completed — 0 records processed
+2026-05-02 19:23:50 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentResearcherScraper
+2026-05-02 19:23:50 | INFO     | agents.base_agent:_log_start:60 - [AgentResearcherScraper] Run started (id=a7059d0d-729a-47b8-b68a-99f6c147ca4e)
+2026-05-02 19:23:50 | INFO     | agents.agent_researcher_scraper:run:82 - [AgentResearcherScraper] Searching by country: TN
+2026-05-02 19:23:51 | WARNING  | agents.agent_researcher_scraper:_paginate_authors:221 - [AgentResearcherScraper] Pagination error on page 1: 400 Client Error: Bad Request for url: https://api.openalex.org/authors?per-page=50&page=1&sort=cited_by_count%3Adesc&select=id%2Cdisplay_name%2Clast_known_institution%2Cworks_count%2Ccited_by_count%2Csummary_stats%2Cids&filter=last_known_institution.country_code%3ATN
+2026-05-02 19:23:51 | WARNING  | agents.agent_researcher_scraper:run:100 - [AgentResearcherScraper] No profiles discovered. Check your parameters.
+2026-05-02 19:23:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentResearcherScraper] Run completed — 0 records processed
+2026-05-02 19:23:51 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentPublicationScraper
+2026-05-02 19:23:51 | INFO     | agents.base_agent:_log_start:60 - [AgentPublicationScraper] Run started (id=ac76625d-b7cd-41d2-bd6d-802083e5cbcd)
+2026-05-02 19:23:51 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Amira Bouaziz
+2026-05-02 19:23:52 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Karim Ben Ali
+2026-05-02 19:23:53 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Leila Mansouri
+2026-05-02 19:23:53 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Youssef Trabelsi
+2026-05-02 19:23:54 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Sonia Khelifi
+2026-05-02 19:23:55 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Mohamed Jarray
+2026-05-02 19:23:56 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Nadia Zouari
+2026-05-02 19:23:56 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Ali Ouertani
+2026-05-02 19:23:57 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Fatma Mejri
+2026-05-02 19:23:57 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Bilel Hamdi
+2026-05-02 19:23:58 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Rania Chaabane
+2026-05-02 19:23:59 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Omar Mabrouk
+2026-05-02 19:23:59 | INFO     | agents.base_agent:_log_finish:71 - [AgentPublicationScraper] Run completed — 0 records processed
+2026-05-02 19:23:59 | INFO     | agents.agent_coordinator:run:98 - [Phase 2] Analysis
+2026-05-02 19:23:59 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentExpertiseMatcher
+2026-05-02 19:23:59 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=9e5fe8e2-a2d7-444e-97c0-601243022167)
+2026-05-02 19:23:59 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 12 records processed
+2026-05-02 19:23:59 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCluster
+2026-05-02 19:23:59 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=8c3e7bc7-c9ef-41a5-a3ff-deecb797f0dc)
+2026-05-02 19:24:05 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 12 researchers.
+2026-05-02 19:24:05 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 12 records processed
+2026-05-02 19:24:05 | INFO     | agents.agent_coordinator:run:107 - [Phase 3] Recommendations & Negotiation
+2026-05-02 19:24:05 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCollabAdvisor
+2026-05-02 19:24:05 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=d2ff5d10-55fa-4b92-b0cd-733d8bbfcfe3)
+2026-05-02 19:24:05 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 29 collaboration recommendations.
+2026-05-02 19:24:05 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 29 records processed
+2026-05-02 19:24:05 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentNegotiator
+2026-05-02 19:24:05 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=2709befd-d9e8-4aac-badb-e4324c54844c)
+2026-05-02 19:24:05 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 19:24:05 | INFO     | agents.agent_coordinator:run:115 - ============================================================
+2026-05-02 19:24:05 | INFO     | agents.agent_coordinator:run:116 - [AgentCoordinator] Pipeline COMPLETE
+2026-05-02 19:24:05 | INFO     | agents.agent_coordinator:run:117 - Summary: {'labs': {'labs_created': 0}, 'researchers': {'created': 0, 'updated': 0}, 'publications': {'total_new_publications': 0}, 'expertise': {'researchers_processed': 12, 'expertise_entries': 21}, 'clusters': {'clusters': 8, 'researchers_clustered': 12}, 'collaborations': {'recommendations': 29}, 'negotiations': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 19:24:05 | INFO     | agents.agent_coordinator:run:118 - ============================================================
+2026-05-02 19:24:05 | INFO     | agents.base_agent:_log_finish:71 - [AgentCoordinator] Run completed — 0 records processed
+2026-05-02 19:25:36 | INFO     | __main__:main:103 - Initialising database ...
+2026-05-02 19:25:36 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 19:25:37 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 19:25:37 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 19:25:37 | INFO     | agents.base_agent:__init__:23 - [AgentCoordinator] Initialized
+2026-05-02 19:25:37 | INFO     | agents.base_agent:__init__:23 - [AgentLabScraper] Initialized
+2026-05-02 19:25:37 | INFO     | agents.base_agent:__init__:23 - [AgentResearcherScraper] Initialized
+2026-05-02 19:25:37 | INFO     | agents.base_agent:__init__:23 - [AgentPublicationScraper] Initialized
+2026-05-02 19:25:37 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 19:25:37 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 19:25:37 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 19:25:37 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 19:25:37 | INFO     | agents.base_agent:_log_start:60 - [AgentCoordinator] Run started (id=8e2f098e-fd58-4a0d-a97d-d4016830d2e7)
+2026-05-02 19:25:37 | INFO     | agents.agent_coordinator:run:67 - ============================================================
+2026-05-02 19:25:37 | INFO     | agents.agent_coordinator:run:68 - [AgentCoordinator] Pipeline START
+2026-05-02 19:25:37 | INFO     | agents.agent_coordinator:run:69 - ============================================================
+2026-05-02 19:25:37 | INFO     | agents.agent_coordinator:run:73 - [Phase 1] Data Collection
+2026-05-02 19:25:37 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentLabScraper
+2026-05-02 19:25:37 | INFO     | agents.base_agent:_log_start:60 - [AgentLabScraper] Run started (id=e845f3ad-5f6e-4a1b-b984-7b5a954aa455)
+2026-05-02 19:25:37 | INFO     | agents.base_agent:_log_finish:71 - [AgentLabScraper] Run completed — 0 records processed
+2026-05-02 19:25:37 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentResearcherScraper
+2026-05-02 19:25:37 | INFO     | agents.base_agent:_log_start:60 - [AgentResearcherScraper] Run started (id=66be3c6f-c6de-4996-8b79-551184dbd131)
+2026-05-02 19:25:37 | INFO     | agents.agent_researcher_scraper:run:82 - [AgentResearcherScraper] Searching by country: TN
+2026-05-02 19:25:37 | WARNING  | agents.agent_researcher_scraper:_paginate_authors:221 - [AgentResearcherScraper] Pagination error on page 1: 400 Client Error: Bad Request for url: https://api.openalex.org/authors?per-page=50&page=1&sort=cited_by_count%3Adesc&select=id%2Cdisplay_name%2Clast_known_institution%2Cworks_count%2Ccited_by_count%2Csummary_stats%2Cids&filter=last_known_institution.country_code%3ATN
+2026-05-02 19:25:37 | WARNING  | agents.agent_researcher_scraper:run:100 - [AgentResearcherScraper] No profiles discovered. Check your parameters.
+2026-05-02 19:25:37 | INFO     | agents.base_agent:_log_finish:71 - [AgentResearcherScraper] Run completed — 0 records processed
+2026-05-02 19:25:37 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentPublicationScraper
+2026-05-02 19:25:37 | INFO     | agents.base_agent:_log_start:60 - [AgentPublicationScraper] Run started (id=26fe55bf-4045-4363-af28-43df165fd1f9)
+2026-05-02 19:25:38 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Amira Bouaziz
+2026-05-02 19:25:38 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Karim Ben Ali
+2026-05-02 19:25:39 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Leila Mansouri
+2026-05-02 19:25:40 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Youssef Trabelsi
+2026-05-02 19:25:41 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Sonia Khelifi
+2026-05-02 19:25:42 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Mohamed Jarray
+2026-05-02 19:25:42 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Nadia Zouari
+2026-05-02 19:25:43 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Ali Ouertani
+2026-05-02 19:25:43 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Fatma Mejri
+2026-05-02 19:25:44 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Bilel Hamdi
+2026-05-02 19:25:44 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Rania Chaabane
+2026-05-02 19:25:45 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Omar Mabrouk
+2026-05-02 19:25:45 | INFO     | agents.base_agent:_log_finish:71 - [AgentPublicationScraper] Run completed — 0 records processed
+2026-05-02 19:25:45 | INFO     | agents.agent_coordinator:run:98 - [Phase 2] Analysis
+2026-05-02 19:25:45 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentExpertiseMatcher
+2026-05-02 19:25:45 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=f1bb6850-85af-44c8-b886-1900be1c6e7f)
+2026-05-02 19:25:46 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 12 records processed
+2026-05-02 19:25:46 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCluster
+2026-05-02 19:25:46 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=79427876-afb2-48b9-9ea3-e04c87cbd1ca)
+2026-05-02 19:25:51 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 12 researchers.
+2026-05-02 19:25:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 12 records processed
+2026-05-02 19:25:51 | INFO     | agents.agent_coordinator:run:107 - [Phase 3] Recommendations & Negotiation
+2026-05-02 19:25:51 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCollabAdvisor
+2026-05-02 19:25:51 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=3027c533-5f5f-410a-bfd1-067fbdc23686)
+2026-05-02 19:25:51 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 29 collaboration recommendations.
+2026-05-02 19:25:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 29 records processed
+2026-05-02 19:25:51 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentNegotiator
+2026-05-02 19:25:51 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=a62c9de7-b600-475b-ace5-3575d8543cd6)
+2026-05-02 19:25:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 19:25:51 | INFO     | agents.agent_coordinator:run:115 - ============================================================
+2026-05-02 19:25:51 | INFO     | agents.agent_coordinator:run:116 - [AgentCoordinator] Pipeline COMPLETE
+2026-05-02 19:25:51 | INFO     | agents.agent_coordinator:run:117 - Summary: {'labs': {'labs_created': 0}, 'researchers': {'created': 0, 'updated': 0}, 'publications': {'total_new_publications': 0}, 'expertise': {'researchers_processed': 12, 'expertise_entries': 21}, 'clusters': {'clusters': 8, 'researchers_clustered': 12}, 'collaborations': {'recommendations': 29}, 'negotiations': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 19:25:51 | INFO     | agents.agent_coordinator:run:118 - ============================================================
+2026-05-02 19:25:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentCoordinator] Run completed — 0 records processed
+2026-05-02 19:27:54 | INFO     | __main__:main:103 - Initialising database ...
+2026-05-02 19:27:54 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 19:27:54 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 19:27:54 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 19:27:54 | INFO     | agents.base_agent:__init__:23 - [AgentCoordinator] Initialized
+2026-05-02 19:27:54 | INFO     | agents.base_agent:__init__:23 - [AgentLabScraper] Initialized
+2026-05-02 19:27:54 | INFO     | agents.base_agent:__init__:23 - [AgentResearcherScraper] Initialized
+2026-05-02 19:27:54 | INFO     | agents.base_agent:__init__:23 - [AgentPublicationScraper] Initialized
+2026-05-02 19:27:54 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 19:27:54 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 19:27:54 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 19:27:54 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 19:27:54 | INFO     | agents.base_agent:_log_start:60 - [AgentCoordinator] Run started (id=a74edac6-5609-44be-ba7a-42d67e4f41c3)
+2026-05-02 19:27:54 | INFO     | agents.agent_coordinator:run:67 - ============================================================
+2026-05-02 19:27:54 | INFO     | agents.agent_coordinator:run:68 - [AgentCoordinator] Pipeline START
+2026-05-02 19:27:54 | INFO     | agents.agent_coordinator:run:69 - ============================================================
+2026-05-02 19:27:54 | INFO     | agents.agent_coordinator:run:73 - [Phase 1] Data Collection
+2026-05-02 19:27:54 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentLabScraper
+2026-05-02 19:27:55 | INFO     | agents.base_agent:_log_start:60 - [AgentLabScraper] Run started (id=2896f016-1447-48e1-8498-16447c61f9d2)
+2026-05-02 19:27:55 | INFO     | agents.base_agent:_log_finish:71 - [AgentLabScraper] Run completed — 0 records processed
+2026-05-02 19:27:55 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentResearcherScraper
+2026-05-02 19:27:55 | INFO     | agents.base_agent:_log_start:60 - [AgentResearcherScraper] Run started (id=ca169f10-e611-4393-ad18-f3fb561828cd)
+2026-05-02 19:27:55 | INFO     | agents.agent_researcher_scraper:run:82 - [AgentResearcherScraper] Searching by country: TN
+2026-05-02 19:27:55 | WARNING  | agents.agent_researcher_scraper:_paginate_authors:221 - [AgentResearcherScraper] Pagination error on page 1: 400 Client Error: Bad Request for url: https://api.openalex.org/authors?per-page=50&page=1&sort=cited_by_count%3Adesc&select=id%2Cdisplay_name%2Clast_known_institution%2Cworks_count%2Ccited_by_count%2Csummary_stats%2Cids&filter=country_code%3ATN
+2026-05-02 19:27:55 | WARNING  | agents.agent_researcher_scraper:run:100 - [AgentResearcherScraper] No profiles discovered. Check your parameters.
+2026-05-02 19:27:55 | INFO     | agents.base_agent:_log_finish:71 - [AgentResearcherScraper] Run completed — 0 records processed
+2026-05-02 19:27:55 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentPublicationScraper
+2026-05-02 19:27:55 | INFO     | agents.base_agent:_log_start:60 - [AgentPublicationScraper] Run started (id=4a367573-5d6a-45d2-ae48-e09152dcce6d)
+2026-05-02 19:27:55 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Amira Bouaziz
+2026-05-02 19:27:56 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Karim Ben Ali
+2026-05-02 19:27:57 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Leila Mansouri
+2026-05-02 19:27:58 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Youssef Trabelsi
+2026-05-02 19:27:59 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Sonia Khelifi
+2026-05-02 19:28:00 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Mohamed Jarray
+2026-05-02 19:28:00 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Nadia Zouari
+2026-05-02 19:28:01 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Ali Ouertani
+2026-05-02 19:28:01 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Fatma Mejri
+2026-05-02 19:28:02 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Bilel Hamdi
+2026-05-02 19:28:03 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Rania Chaabane
+2026-05-02 19:28:03 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Omar Mabrouk
+2026-05-02 19:28:04 | INFO     | agents.base_agent:_log_finish:71 - [AgentPublicationScraper] Run completed — 0 records processed
+2026-05-02 19:28:04 | INFO     | agents.agent_coordinator:run:98 - [Phase 2] Analysis
+2026-05-02 19:28:04 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentExpertiseMatcher
+2026-05-02 19:28:04 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=62243661-d1e0-4cd0-b3da-c25f57a8418c)
+2026-05-02 19:28:04 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 12 records processed
+2026-05-02 19:28:04 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCluster
+2026-05-02 19:28:04 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=25d7fb1f-56df-4cb6-93a9-747e4a8e5c05)
+2026-05-02 19:28:09 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 12 researchers.
+2026-05-02 19:28:09 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 12 records processed
+2026-05-02 19:28:09 | INFO     | agents.agent_coordinator:run:107 - [Phase 3] Recommendations & Negotiation
+2026-05-02 19:28:09 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCollabAdvisor
+2026-05-02 19:28:09 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=5371780d-8e6e-4334-a962-dae4de71eea4)
+2026-05-02 19:28:09 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 29 collaboration recommendations.
+2026-05-02 19:28:09 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 29 records processed
+2026-05-02 19:28:09 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentNegotiator
+2026-05-02 19:28:09 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=b88a9a18-fa18-4e1a-a1f7-59ababb510e0)
+2026-05-02 19:28:09 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 19:28:09 | INFO     | agents.agent_coordinator:run:115 - ============================================================
+2026-05-02 19:28:09 | INFO     | agents.agent_coordinator:run:116 - [AgentCoordinator] Pipeline COMPLETE
+2026-05-02 19:28:09 | INFO     | agents.agent_coordinator:run:117 - Summary: {'labs': {'labs_created': 0}, 'researchers': {'created': 0, 'updated': 0}, 'publications': {'total_new_publications': 0}, 'expertise': {'researchers_processed': 12, 'expertise_entries': 21}, 'clusters': {'clusters': 8, 'researchers_clustered': 12}, 'collaborations': {'recommendations': 29}, 'negotiations': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 19:28:09 | INFO     | agents.agent_coordinator:run:118 - ============================================================
+2026-05-02 19:28:09 | INFO     | agents.base_agent:_log_finish:71 - [AgentCoordinator] Run completed — 0 records processed
+2026-05-02 19:31:02 | INFO     | __main__:main:103 - Initialising database ...
+2026-05-02 19:31:02 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 19:31:02 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 19:31:02 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 19:31:02 | INFO     | agents.base_agent:__init__:23 - [AgentCoordinator] Initialized
+2026-05-02 19:31:02 | INFO     | agents.base_agent:__init__:23 - [AgentLabScraper] Initialized
+2026-05-02 19:31:02 | INFO     | agents.base_agent:__init__:23 - [AgentResearcherScraper] Initialized
+2026-05-02 19:31:02 | INFO     | agents.base_agent:__init__:23 - [AgentPublicationScraper] Initialized
+2026-05-02 19:31:02 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 19:31:02 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 19:31:02 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 19:31:02 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 19:31:02 | INFO     | agents.base_agent:_log_start:60 - [AgentCoordinator] Run started (id=1695560b-1ea6-4d22-81f8-f7641a2acb54)
+2026-05-02 19:31:02 | INFO     | agents.agent_coordinator:run:67 - ============================================================
+2026-05-02 19:31:02 | INFO     | agents.agent_coordinator:run:68 - [AgentCoordinator] Pipeline START
+2026-05-02 19:31:02 | INFO     | agents.agent_coordinator:run:69 - ============================================================
+2026-05-02 19:31:02 | INFO     | agents.agent_coordinator:run:73 - [Phase 1] Data Collection
+2026-05-02 19:31:02 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentLabScraper
+2026-05-02 19:31:02 | INFO     | agents.base_agent:_log_start:60 - [AgentLabScraper] Run started (id=5efce9ec-c3d7-4c4f-99c6-c7f709fdf0c3)
+2026-05-02 19:31:02 | INFO     | agents.base_agent:_log_finish:71 - [AgentLabScraper] Run completed — 0 records processed
+2026-05-02 19:31:02 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentResearcherScraper
+2026-05-02 19:31:02 | INFO     | agents.base_agent:_log_start:60 - [AgentResearcherScraper] Run started (id=67836281-4653-466c-856b-3cf5400adb49)
+2026-05-02 19:31:02 | INFO     | agents.agent_researcher_scraper:run:82 - [AgentResearcherScraper] Searching by country: FR
+2026-05-02 19:31:03 | WARNING  | agents.agent_researcher_scraper:_paginate_authors:221 - [AgentResearcherScraper] Pagination error on page 1: 400 Client Error: Bad Request for url: https://api.openalex.org/authors?per-page=50&page=1&sort=cited_by_count%3Adesc&select=id%2Cdisplay_name%2Clast_known_institution%2Cworks_count%2Ccited_by_count%2Csummary_stats%2Cids&filter=country_code%3AFR
+2026-05-02 19:31:03 | WARNING  | agents.agent_researcher_scraper:run:100 - [AgentResearcherScraper] No profiles discovered. Check your parameters.
+2026-05-02 19:31:03 | INFO     | agents.base_agent:_log_finish:71 - [AgentResearcherScraper] Run completed — 0 records processed
+2026-05-02 19:31:03 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentPublicationScraper
+2026-05-02 19:31:03 | INFO     | agents.base_agent:_log_start:60 - [AgentPublicationScraper] Run started (id=83b89718-30d6-4fc6-b909-6918d5b804e4)
+2026-05-02 19:31:03 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Amira Bouaziz
+2026-05-02 19:31:04 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Karim Ben Ali
+2026-05-02 19:31:05 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Leila Mansouri
+2026-05-02 19:31:05 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Youssef Trabelsi
+2026-05-02 19:31:06 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Sonia Khelifi
+2026-05-02 19:31:07 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Mohamed Jarray
+2026-05-02 19:31:08 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Nadia Zouari
+2026-05-02 19:31:08 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Ali Ouertani
+2026-05-02 19:31:09 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Fatma Mejri
+2026-05-02 19:31:10 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Bilel Hamdi
+2026-05-02 19:31:10 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Rania Chaabane
+2026-05-02 19:31:11 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Omar Mabrouk
+2026-05-02 19:31:11 | INFO     | agents.base_agent:_log_finish:71 - [AgentPublicationScraper] Run completed — 0 records processed
+2026-05-02 19:31:11 | INFO     | agents.agent_coordinator:run:98 - [Phase 2] Analysis
+2026-05-02 19:31:11 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentExpertiseMatcher
+2026-05-02 19:31:11 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=ce1e8cec-13d4-4d4c-a107-e3ecd3abaf18)
+2026-05-02 19:31:12 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 12 records processed
+2026-05-02 19:31:12 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCluster
+2026-05-02 19:31:12 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=0fbc8cd2-a882-43be-8b59-fdfeab62c178)
+2026-05-02 19:31:22 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 12 researchers.
+2026-05-02 19:31:22 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 12 records processed
+2026-05-02 19:31:22 | INFO     | agents.agent_coordinator:run:107 - [Phase 3] Recommendations & Negotiation
+2026-05-02 19:31:22 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCollabAdvisor
+2026-05-02 19:31:22 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=ced4ebc4-9730-48d1-af6d-6d1a355985b5)
+2026-05-02 19:31:22 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 29 collaboration recommendations.
+2026-05-02 19:31:22 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 29 records processed
+2026-05-02 19:31:22 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentNegotiator
+2026-05-02 19:31:22 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=db75aa7d-af72-4fd9-869f-745fb46d632a)
+2026-05-02 19:31:22 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 19:31:22 | INFO     | agents.agent_coordinator:run:115 - ============================================================
+2026-05-02 19:31:22 | INFO     | agents.agent_coordinator:run:116 - [AgentCoordinator] Pipeline COMPLETE
+2026-05-02 19:31:22 | INFO     | agents.agent_coordinator:run:117 - Summary: {'labs': {'labs_created': 0}, 'researchers': {'created': 0, 'updated': 0}, 'publications': {'total_new_publications': 0}, 'expertise': {'researchers_processed': 12, 'expertise_entries': 21}, 'clusters': {'clusters': 8, 'researchers_clustered': 12}, 'collaborations': {'recommendations': 29}, 'negotiations': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 19:31:22 | INFO     | agents.agent_coordinator:run:118 - ============================================================
+2026-05-02 19:31:22 | INFO     | agents.base_agent:_log_finish:71 - [AgentCoordinator] Run completed — 0 records processed
+2026-05-02 19:31:43 | INFO     | __main__:main:103 - Initialising database ...
+2026-05-02 19:31:43 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 19:31:44 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 19:31:44 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 19:31:44 | INFO     | agents.base_agent:__init__:23 - [AgentCoordinator] Initialized
+2026-05-02 19:31:44 | INFO     | agents.base_agent:__init__:23 - [AgentLabScraper] Initialized
+2026-05-02 19:31:44 | INFO     | agents.base_agent:__init__:23 - [AgentResearcherScraper] Initialized
+2026-05-02 19:31:44 | INFO     | agents.base_agent:__init__:23 - [AgentPublicationScraper] Initialized
+2026-05-02 19:31:44 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 19:31:44 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 19:31:44 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 19:31:44 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 19:31:44 | INFO     | agents.base_agent:_log_start:60 - [AgentCoordinator] Run started (id=891d1df1-43b4-4148-9efb-656b31da1811)
+2026-05-02 19:31:44 | INFO     | agents.agent_coordinator:run:67 - ============================================================
+2026-05-02 19:31:44 | INFO     | agents.agent_coordinator:run:68 - [AgentCoordinator] Pipeline START
+2026-05-02 19:31:44 | INFO     | agents.agent_coordinator:run:69 - ============================================================
+2026-05-02 19:31:44 | INFO     | agents.agent_coordinator:run:73 - [Phase 1] Data Collection
+2026-05-02 19:31:44 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentLabScraper
+2026-05-02 19:31:44 | INFO     | agents.base_agent:_log_start:60 - [AgentLabScraper] Run started (id=ca15e609-c7f4-4b04-8eb1-fe7b0945576f)
+2026-05-02 19:31:44 | INFO     | agents.base_agent:_log_finish:71 - [AgentLabScraper] Run completed — 0 records processed
+2026-05-02 19:31:44 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentResearcherScraper
+2026-05-02 19:31:44 | INFO     | agents.base_agent:_log_start:60 - [AgentResearcherScraper] Run started (id=0e9e1cdb-1ab4-4014-9c3c-5f8ddca6fc84)
+2026-05-02 19:31:44 | INFO     | agents.agent_researcher_scraper:run:82 - [AgentResearcherScraper] Searching by country: France
+2026-05-02 19:31:44 | WARNING  | agents.agent_researcher_scraper:_paginate_authors:221 - [AgentResearcherScraper] Pagination error on page 1: 400 Client Error: Bad Request for url: https://api.openalex.org/authors?per-page=50&page=1&sort=cited_by_count%3Adesc&select=id%2Cdisplay_name%2Clast_known_institution%2Cworks_count%2Ccited_by_count%2Csummary_stats%2Cids&filter=country_code%3AFRANCE
+2026-05-02 19:31:44 | WARNING  | agents.agent_researcher_scraper:run:100 - [AgentResearcherScraper] No profiles discovered. Check your parameters.
+2026-05-02 19:31:44 | INFO     | agents.base_agent:_log_finish:71 - [AgentResearcherScraper] Run completed — 0 records processed
+2026-05-02 19:31:44 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentPublicationScraper
+2026-05-02 19:31:44 | INFO     | agents.base_agent:_log_start:60 - [AgentPublicationScraper] Run started (id=280ec776-e3b5-4d48-8a6c-83b26545cedd)
+2026-05-02 19:31:44 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Amira Bouaziz
+2026-05-02 19:31:45 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Karim Ben Ali
+2026-05-02 19:31:45 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Leila Mansouri
+2026-05-02 19:31:46 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Youssef Trabelsi
+2026-05-02 19:31:46 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Sonia Khelifi
+2026-05-02 19:31:47 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Mohamed Jarray
+2026-05-02 19:31:48 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Nadia Zouari
+2026-05-02 19:31:48 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Ali Ouertani
+2026-05-02 19:31:49 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Fatma Mejri
+2026-05-02 19:31:49 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Bilel Hamdi
+2026-05-02 19:31:50 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Prof. Rania Chaabane
+2026-05-02 19:31:50 | INFO     | agents.agent_publication_scraper:run:49 - [AgentPublicationScraper] Fetching pubs for: Dr. Omar Mabrouk
+2026-05-02 19:31:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentPublicationScraper] Run completed — 0 records processed
+2026-05-02 19:31:51 | INFO     | agents.agent_coordinator:run:98 - [Phase 2] Analysis
+2026-05-02 19:31:51 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentExpertiseMatcher
+2026-05-02 19:31:51 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=fe5e188b-81e1-4cd0-9d95-c605e11b3e06)
+2026-05-02 19:31:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 12 records processed
+2026-05-02 19:31:51 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCluster
+2026-05-02 19:31:51 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=caa319bf-9559-4d5e-a239-98684743f19a)
+2026-05-02 19:31:59 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 12 researchers.
+2026-05-02 19:31:59 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 12 records processed
+2026-05-02 19:31:59 | INFO     | agents.agent_coordinator:run:107 - [Phase 3] Recommendations & Negotiation
+2026-05-02 19:31:59 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCollabAdvisor
+2026-05-02 19:31:59 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=d18565cd-8ca2-457a-87a2-270231b2d248)
+2026-05-02 19:31:59 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 29 collaboration recommendations.
+2026-05-02 19:31:59 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 29 records processed
+2026-05-02 19:31:59 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentNegotiator
+2026-05-02 19:31:59 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=c4a72ce2-81b5-40da-be32-4654bfe2394e)
+2026-05-02 19:31:59 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 19:31:59 | INFO     | agents.agent_coordinator:run:115 - ============================================================
+2026-05-02 19:31:59 | INFO     | agents.agent_coordinator:run:116 - [AgentCoordinator] Pipeline COMPLETE
+2026-05-02 19:31:59 | INFO     | agents.agent_coordinator:run:117 - Summary: {'labs': {'labs_created': 0}, 'researchers': {'created': 0, 'updated': 0}, 'publications': {'total_new_publications': 0}, 'expertise': {'researchers_processed': 12, 'expertise_entries': 21}, 'clusters': {'clusters': 8, 'researchers_clustered': 12}, 'collaborations': {'recommendations': 29}, 'negotiations': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 19:31:59 | INFO     | agents.agent_coordinator:run:118 - ============================================================
+2026-05-02 19:31:59 | INFO     | agents.base_agent:_log_finish:71 - [AgentCoordinator] Run completed — 0 records processed
+2026-05-02 19:38:41 | INFO     | __main__:main:103 - Initialising database ...
+2026-05-02 19:38:41 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 19:38:41 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 19:38:41 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 19:38:41 | INFO     | agents.base_agent:__init__:23 - [AgentCoordinator] Initialized
+2026-05-02 19:38:41 | INFO     | agents.base_agent:__init__:23 - [AgentLabScraper] Initialized
+2026-05-02 19:38:41 | INFO     | agents.base_agent:__init__:23 - [AgentResearcherScraper] Initialized
+2026-05-02 19:38:41 | INFO     | agents.base_agent:__init__:23 - [AgentPublicationScraper] Initialized
+2026-05-02 19:38:41 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 19:38:41 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 19:38:41 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 19:38:41 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 19:38:41 | INFO     | agents.base_agent:_log_start:60 - [AgentCoordinator] Run started (id=5145afd6-32db-483c-a84e-d09174335db9)
+2026-05-02 19:38:41 | INFO     | agents.agent_coordinator:run:67 - ============================================================
+2026-05-02 19:38:41 | INFO     | agents.agent_coordinator:run:68 - [AgentCoordinator] Pipeline START
+2026-05-02 19:38:41 | INFO     | agents.agent_coordinator:run:69 - ============================================================
+2026-05-02 19:38:41 | INFO     | agents.agent_coordinator:run:73 - [Phase 1] Data Collection
+2026-05-02 19:38:41 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentLabScraper
+2026-05-02 19:38:41 | INFO     | agents.base_agent:_log_start:60 - [AgentLabScraper] Run started (id=98f84a95-d039-4105-a1a0-9c36d7549e49)
+2026-05-02 19:38:41 | INFO     | agents.base_agent:_log_finish:71 - [AgentLabScraper] Run completed — 0 records processed
+2026-05-02 19:38:41 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentResearcherScraper
+2026-05-02 19:38:41 | INFO     | agents.base_agent:_log_start:60 - [AgentResearcherScraper] Run started (id=4ca4047b-d8cf-47b2-8607-a8c2b6d2e17a)
+2026-05-02 19:38:41 | INFO     | agents.agent_researcher_scraper:run:101 - [AgentResearcherScraper] Searching by country: France → ISO=FR
+2026-05-02 19:38:42 | ERROR    | agents.agent_researcher_scraper:_paginate_authors:203 - [AgentResearcherScraper] OpenAlex HTTP 400 — URL: https://api.openalex.org/authors?per-page=50&page=1&sort=cited_by_count%3Adesc&select=id%2Cdisplay_name%2Clast_known_institution%2Cworks_count%2Ccited_by_count%2Ch_index%2Corcid&filter=last_known_institution.country_code%3AFR
+Body: {"error":"Invalid query parameters error.","message":"last_known_institution is not a valid select field. Valid fields for select are: id, orcid, display_name, raw_author_names, full_name, relevance_score, works_count, cited_by_count, summary_stats, ids, affiliations, last_known_institutions, topics
+2026-05-02 19:38:42 | WARNING  | agents.agent_researcher_scraper:run:127 - [AgentResearcherScraper] No profiles discovered. Check --country (ISO code like TN/FR), --institution, or --topic.
+2026-05-02 19:38:42 | INFO     | agents.base_agent:_log_finish:71 - [AgentResearcherScraper] Run completed — 0 records processed
+2026-05-02 19:38:42 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentPublicationScraper
+2026-05-02 19:38:42 | INFO     | agents.base_agent:_log_start:60 - [AgentPublicationScraper] Run started (id=9b69fb23-63c7-422e-87a0-b5b98e1964c7)
+2026-05-02 19:38:42 | INFO     | agents.agent_publication_scraper:run:47 - [AgentPublicationScraper] Fetching pubs for: Dr. Amira Bouaziz
+2026-05-02 19:38:43 | INFO     | agents.agent_publication_scraper:run:47 - [AgentPublicationScraper] Fetching pubs for: Prof. Karim Ben Ali
+2026-05-02 19:38:44 | INFO     | agents.agent_publication_scraper:run:47 - [AgentPublicationScraper] Fetching pubs for: Dr. Leila Mansouri
+2026-05-02 19:38:45 | INFO     | agents.agent_publication_scraper:run:47 - [AgentPublicationScraper] Fetching pubs for: Dr. Youssef Trabelsi
+2026-05-02 19:38:46 | INFO     | agents.agent_publication_scraper:run:47 - [AgentPublicationScraper] Fetching pubs for: Prof. Sonia Khelifi
+2026-05-02 19:38:46 | INFO     | agents.agent_publication_scraper:run:47 - [AgentPublicationScraper] Fetching pubs for: Dr. Mohamed Jarray
+2026-05-02 19:38:47 | INFO     | agents.agent_publication_scraper:run:47 - [AgentPublicationScraper] Fetching pubs for: Dr. Nadia Zouari
+2026-05-02 19:38:48 | INFO     | agents.agent_publication_scraper:run:47 - [AgentPublicationScraper] Fetching pubs for: Prof. Ali Ouertani
+2026-05-02 19:38:49 | INFO     | agents.agent_publication_scraper:run:47 - [AgentPublicationScraper] Fetching pubs for: Dr. Fatma Mejri
+2026-05-02 19:38:49 | INFO     | agents.agent_publication_scraper:run:47 - [AgentPublicationScraper] Fetching pubs for: Dr. Bilel Hamdi
+2026-05-02 19:38:50 | INFO     | agents.agent_publication_scraper:run:47 - [AgentPublicationScraper] Fetching pubs for: Prof. Rania Chaabane
+2026-05-02 19:38:50 | INFO     | agents.agent_publication_scraper:run:47 - [AgentPublicationScraper] Fetching pubs for: Dr. Omar Mabrouk
+2026-05-02 19:38:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentPublicationScraper] Run completed — 0 records processed
+2026-05-02 19:38:51 | INFO     | agents.agent_coordinator:run:98 - [Phase 2] Analysis
+2026-05-02 19:38:51 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentExpertiseMatcher
+2026-05-02 19:38:51 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=d602be22-d0d7-4828-87db-4ccaa8b01dd5)
+2026-05-02 19:38:51 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 12 records processed
+2026-05-02 19:38:51 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCluster
+2026-05-02 19:38:51 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=0cd67915-b8ff-4589-8c79-c1775a5840a0)
+2026-05-02 19:38:58 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 12 researchers.
+2026-05-02 19:38:58 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 12 records processed
+2026-05-02 19:38:58 | INFO     | agents.agent_coordinator:run:107 - [Phase 3] Recommendations & Negotiation
+2026-05-02 19:38:58 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentCollabAdvisor
+2026-05-02 19:38:58 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=3e167c00-e662-4a7f-8344-9d1ab3462ffb)
+2026-05-02 19:38:58 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 29 collaboration recommendations.
+2026-05-02 19:38:58 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 29 records processed
+2026-05-02 19:38:58 | INFO     | agents.agent_coordinator:_run_agent:124 - [AgentCoordinator] Launching → AgentNegotiator
+2026-05-02 19:38:58 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=edab724f-e261-4fe7-b417-6945da936366)
+2026-05-02 19:38:58 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 19:38:58 | INFO     | agents.agent_coordinator:run:115 - ============================================================
+2026-05-02 19:38:58 | INFO     | agents.agent_coordinator:run:116 - [AgentCoordinator] Pipeline COMPLETE
+2026-05-02 19:38:58 | INFO     | agents.agent_coordinator:run:117 - Summary: {'labs': {'labs_created': 0}, 'researchers': {'created': 0, 'updated': 0, 'total': 0}, 'publications': {'total_new_publications': 0}, 'expertise': {'researchers_processed': 12, 'expertise_entries': 21}, 'clusters': {'clusters': 8, 'researchers_clustered': 12}, 'collaborations': {'recommendations': 29}, 'negotiations': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 19:38:58 | INFO     | agents.agent_coordinator:run:118 - ============================================================
+2026-05-02 19:38:58 | INFO     | agents.base_agent:_log_finish:71 - [AgentCoordinator] Run completed — 0 records processed
