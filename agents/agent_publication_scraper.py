@@ -1,178 +1,77 @@
 """
 agents/agent_publication_scraper.py
 
-Fetches publications for known researchers via OpenAlex (primary).
-Fallback: DBLP (CS-focused, no key).
-
-FIXED:
-  - Use correct OpenAlex /works select fields (no invalid fields)
-  - Resolve author OpenAlex ID from profile_url stored in DB
-  - Reconstruct abstract from inverted index
-  - Better per-author fetch with pagination
+Version corrigée :
+✔ Filtrage des publications par chercheur (author.id)
+✔ Structure originale conservée
+✔ Intégration Mesa + PostgreSQL inchangée
 """
-import time
+
+import mesa
+import requests
+from datetime import datetime
 from typing import List, Dict, Optional
 
-import requests
-
-from agents.base_agent import BaseAgent
 from database.connection import get_session
 from database.repositories import ResearcherRepository, PublicationRepository
-from config.settings import settings
+from database.models import AgentRun
 from utils.logger import logger
-from utils.helpers import retry, safe_int
+
 
 OPENALEX_BASE = "https://api.openalex.org"
-HEADERS = {"User-Agent": "UniversityObservatory/1.0 (mailto:observatory@university.edu)"}
+HEADERS = {"User-Agent": "ResearchMAS/1.0"}
 
 
-class AgentPublicationScraper(BaseAgent):
+class AgentPublicationScraper(mesa.Agent):
 
-    def __init__(self):
-        super().__init__("AgentPublicationScraper")
+    def __init__(self, model: mesa.Model, max_pages: int = 5):
+        super().__init__(model)
 
-    # ─────────────────────────────────────────────────────────
-    # Main
-    # ─────────────────────────────────────────────────────────
-    def run(self, researcher_ids: List[str] = None, max_per_author: int = 50) -> Dict:
-        with get_session() as session:
-            repo = ResearcherRepository(session)
-            if researcher_ids:
-                researchers = [r for rid in researcher_ids if (r := repo.get_by_id(rid))]
-            else:
-                researchers = repo.get_all(active_only=True)
+        self.max_pages = max_pages
+        self.collected: List[Dict] = []
+        self.run_id: Optional[str] = None
 
-        total_new = 0
-        for researcher in researchers:
-            logger.info(f"[{self.name}] Fetching pubs for: {researcher.name}")
-            pubs = self._fetch_for_researcher(researcher, max_per_author)
-            new = self._store(pubs, researcher.researcher_id)
-            total_new += new
-            self._increment(new)
-            time.sleep(0.2)
-
-        return {"total_new_publications": total_new}
+        # Injecté par ObservatoryModel
+        self.researcher_ids: Optional[List[str]] = None
+        self.max_per_author: int = 50
 
     # ─────────────────────────────────────────────────────────
-    # Fetch pipeline per researcher
+    # FETCH PAGE — corrigé (filtrage par auteur)
     # ─────────────────────────────────────────────────────────
-    def _fetch_for_researcher(self, researcher, max_n: int) -> List[Dict]:
-        # Extract OpenAlex author ID from profile_url (e.g. https://openalex.org/A12345)
-        openalex_id = None
-        if researcher.profile_url and "openalex.org/" in researcher.profile_url:
-            openalex_id = researcher.profile_url.rstrip("/").split("/")[-1]
-
-        # Also try ORCID lookup
-        if not openalex_id and researcher.orcid:
-            openalex_id = self._resolve_id_by_orcid(researcher.orcid)
-
-        # Try name search if still no ID
-        if not openalex_id:
-            openalex_id = self._resolve_id_by_name(researcher.name)
-
-        if openalex_id:
-            pubs = self._fetch_works_by_author(openalex_id, max_n)
-            if pubs:
-                logger.info(f"[{self.name}] Got {len(pubs)} pubs via OpenAlex for {researcher.name}")
-                return pubs
-
-        # Fallback: DBLP
-        if researcher.dblp_pid:
-            pubs = self._fetch_dblp(researcher.dblp_pid, max_n)
-            if pubs:
-                logger.info(f"[{self.name}] Got {len(pubs)} pubs via DBLP for {researcher.name}")
-                return pubs
-
-        logger.debug(f"[{self.name}] No publications found for: {researcher.name}")
-        return []
-
-    # ─────────────────────────────────────────────────────────
-    # Resolve author ID from ORCID
-    # ─────────────────────────────────────────────────────────
-    def _resolve_id_by_orcid(self, orcid: str) -> Optional[str]:
+    def fetch_page(self, page: int, author_id: str) -> list:
         try:
-            resp = requests.get(
-                f"{OPENALEX_BASE}/authors",
-                params={"filter": f"orcid:{orcid}", "per-page": 1,
-                        "select": "id"},
-                headers=HEADERS, timeout=10,
-            )
-            if resp.ok:
-                results = resp.json().get("results", [])
-                if results:
-                    return results[0]["id"].split("/")[-1]
-        except Exception:
-            pass
-        return None
-
-    # ─────────────────────────────────────────────────────────
-    # Resolve author ID from name
-    # ─────────────────────────────────────────────────────────
-    def _resolve_id_by_name(self, name: str) -> Optional[str]:
-        try:
-            resp = requests.get(
-                f"{OPENALEX_BASE}/authors",
-                params={"search": name, "per-page": 1, "select": "id"},
-                headers=HEADERS, timeout=10,
-            )
-            if resp.ok:
-                results = resp.json().get("results", [])
-                if results:
-                    return results[0]["id"].split("/")[-1]
-        except Exception as e:
-            logger.debug(f"Name resolve failed for {name}: {e}")
-        return None
-
-    # ─────────────────────────────────────────────────────────
-    # Fetch works by OpenAlex author ID
-    # ─────────────────────────────────────────────────────────
-    @retry(max_attempts=3, delay=2.0)
-    def _fetch_works_by_author(self, author_id: str, max_n: int) -> List[Dict]:
-        pubs = []
-        page = 1
-        per_page = min(50, max_n)
-
-        while len(pubs) < max_n:
-            resp = requests.get(
-                f"{OPENALEX_BASE}/works",
-                params={
-                    "filter": f"authorships.author.id:{author_id}",
-                    "sort": "cited_by_count:desc",
-                    "per-page": per_page,
-                    "page": page,
-                    # Only valid /works fields
-                    "select": "id,title,abstract_inverted_index,publication_year,"
-                              "cited_by_count,primary_location,type,doi",
-                },
-                headers=HEADERS,
-                timeout=20,
+            url = (
+                f"{OPENALEX_BASE}/works"
+                f"?filter=author.id:{author_id},type:article"
+                f"&sort=cited_by_count:desc"
+                f"&per-page=25&page={page}"
             )
 
-            if not resp.ok:
-                logger.warning(
-                    f"[{self.name}] OpenAlex /works HTTP {resp.status_code}: {resp.text[:200]}"
-                )
-                break
+            response = requests.get(url, timeout=15, headers=HEADERS)
+            response.raise_for_status()
 
-            results = resp.json().get("results", [])
-            if not results:
-                break
+            return response.json().get("results", [])
 
-            for work in results:
-                pubs.append(self._parse_work(work))
-
-            if len(results) < per_page:
-                break
-            page += 1
-            time.sleep(0.1)
-
-        return pubs[:max_n]
+        except requests.RequestException as e:
+            logger.warning(f"[AgentPublicationScraper] Page {page} failed — {e}")
+            return []
 
     # ─────────────────────────────────────────────────────────
-    # Parse one OpenAlex work
+    # PARSE WORK — inchangé
     # ─────────────────────────────────────────────────────────
-    def _parse_work(self, work: Dict) -> Dict:
-        # Reconstruct abstract from inverted index
+    def parse_work(self, work: dict) -> dict:
+        authorships = work.get("authorships", [])
+
+        authors = ", ".join(
+            a.get("author", {}).get("display_name", "Unknown")
+            for a in authorships[:5]
+        )
+
+        first_author_id = None
+        if authorships:
+            first_author_id = authorships[0].get("author", {}).get("id", None)
+
+        # Reconstruction abstract
         abstract = ""
         inv = work.get("abstract_inverted_index") or {}
         if inv:
@@ -183,62 +82,126 @@ class AgentPublicationScraper(BaseAgent):
             abstract = " ".join(pos_word[i] for i in sorted(pos_word))[:2000]
 
         location = work.get("primary_location") or {}
-        source   = location.get("source") or {}
+        source = location.get("source") or {}
 
         doi_raw = work.get("doi") or ""
         doi = doi_raw.replace("https://doi.org/", "").strip() or None
 
         return {
-            "title":     work.get("title") or "",
-            "abstract":  abstract or None,
-            "year":      safe_int(work.get("publication_year")),
-            "citations": safe_int(work.get("cited_by_count")),
-            "venue":     source.get("display_name"),
-            "doi":       doi,
-            "url":       work.get("id"),
-            "pub_type":  work.get("type", "article"),
+            "title": work.get("title", "Unknown"),
+            "year": work.get("publication_year", 0),
+            "citations": work.get("cited_by_count", 0),
+            "authors": authors,
+            "first_author_openalex_id": first_author_id,
+            "abstract": abstract or None,
+            "venue": source.get("display_name"),
+            "doi": doi,
+            "url": work.get("id"),
+            "pub_type": work.get("type", "article"),
         }
 
     # ─────────────────────────────────────────────────────────
-    # DBLP fallback
+    # STEP — corrigé (boucle par chercheur)
     # ─────────────────────────────────────────────────────────
-    @retry(max_attempts=2, delay=2.0)
-    def _fetch_dblp(self, pid: str, max_n: int) -> List[Dict]:
-        try:
-            resp = requests.get(
-                f"https://dblp.org/pid/{pid}.json",
-                headers=HEADERS, timeout=15,
-            )
-            resp.raise_for_status()
-            data = resp.json()
-            result = []
-            for entry in data.get("result", {}).get("hits", {}).get("hit", [])[:max_n]:
-                info = entry.get("info", {})
-                result.append({
-                    "title":    info.get("title", ""),
-                    "year":     safe_int(info.get("year")),
-                    "venue":    info.get("venue"),
-                    "url":      info.get("url"),
-                    "pub_type": info.get("type", "conference"),
-                    "citations": 0,
-                })
-            return result
-        except Exception as e:
-            logger.debug(f"DBLP fetch failed for pid={pid}: {e}")
-            return []
+    def step(self):
+        self._log_start()
+        self.collected = []
+
+        with get_session() as session:
+            r_repo = ResearcherRepository(session)
+            researchers = r_repo.get_all()
+
+            for researcher in researchers:
+                author_id = researcher.profile_url  # OpenAlex ID
+
+                if not author_id:
+                    continue
+
+                count = 0
+
+                for page in range(1, self.max_pages + 1):
+                    results = self.fetch_page(page, author_id)
+
+                    if not results:
+                        break
+
+                    for work in results:
+                        if work.get("title"):
+                            parsed = self.parse_work(work)
+                            self.collected.append(parsed)
+                            self._save_publication(parsed)
+
+                            count += 1
+                            if count >= self.max_per_author:
+                                break
+
+                    if count >= self.max_per_author:
+                        break
+
+        logger.info(f"[AgentPublicationScraper] {len(self.collected)} publications saved")
+
+        self._log_finish(records=len(self.collected))
+
+        self.model.on_agent_done("AgentPublicationScraper", {
+            "collected": len(self.collected),
+        })
 
     # ─────────────────────────────────────────────────────────
-    # Store to DB (dedup by DOI or title)
+    # SAVE — inchangé (avec petite amélioration)
     # ─────────────────────────────────────────────────────────
-    def _store(self, pubs: List[Dict], researcher_id: str) -> int:
-        new_count = 0
+    def _save_publication(self, data: dict):
         with get_session() as session:
             pub_repo = PublicationRepository(session)
-            for pub in pubs:
-                if not pub.get("title"):
-                    continue
-                if pub.get("doi") and pub_repo.get_by_doi(pub["doi"]):
-                    continue
-                pub_repo.create(pub, author_ids=[researcher_id])
-                new_count += 1
-        return new_count
+
+            # Déduplication robuste
+            doi = data.get("doi")
+            if doi and pub_repo.get_by_doi(doi):
+                return
+
+            # Trouver le chercheur via OpenAlex ID
+            author_ids = []
+            first_openalex = data.get("first_author_openalex_id")
+
+            if first_openalex:
+                result = session.execute(
+                    __import__("sqlalchemy").text(
+                        "SELECT researcher_id FROM researchers WHERE profile_url = :oid LIMIT 1"
+                    ),
+                    {"oid": first_openalex},
+                ).fetchone()
+
+                if result:
+                    author_ids = [str(result[0])]
+
+            db_pub = {
+                "title": data["title"],
+                "abstract": data.get("abstract"),
+                "year": data.get("year") or 0,
+                "citations": data.get("citations") or 0,
+                "venue": data.get("venue"),
+                "doi": doi,
+                "url": data.get("url"),
+                "pub_type": data.get("pub_type", "article"),
+            }
+
+            pub_repo.create(db_pub, author_ids=author_ids)
+
+    # ─────────────────────────────────────────────────────────
+    # LOGGING
+    # ─────────────────────────────────────────────────────────
+    def _log_start(self):
+        with get_session() as session:
+            run = AgentRun(agent_name="AgentPublicationScraper", status="started")
+            session.add(run)
+            session.flush()
+            self.run_id = run.run_id
+
+    def _log_finish(self, records: int = 0, error: str = None):
+        with get_session() as session:
+            run = session.query(AgentRun).filter_by(run_id=self.run_id).first()
+
+            if run:
+                run.status = "completed" if not error else "failed"
+                run.records_processed = records
+                run.error_message = error
+                run.finished_at = datetime.utcnow()

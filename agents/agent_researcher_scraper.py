@@ -1,323 +1,232 @@
 """
 agents/agent_researcher_scraper.py
 
-Automatically discovers researcher profiles using:
-  ► OpenAlex  (primary)  — free, no API key, 250M+ works
-  ► DBLP      (fallback) — free, no API key, CS-focused
+Logique identique au code original de l'étudiant :
+  - is_valid_researcher() — filtre les noms invalides / keyword / bots
+  - parse_author()        — extrait openalex_id, name, citations, h_index, expertise
+  - fetch_page()          — appel OpenAlex /authors paginé
+  - step()               — boucle pages → filtre → parse → sauvegarde DB
 
-NO manual name input needed. Just configure:
-  - country_code / country name  (e.g. "TN", "FR", "Tunisia", "France")
-  - institution_name             (e.g. "Université de Tunis El Manar")
-  - OR a research topic/keyword  (e.g. "machine learning")
-
-OpenAlex docs: https://docs.openalex.org/api-entities/authors
-
-FIXED:
-  - correct OpenAlex filter: last_known_institution.country_code:XX
-  - removed invalid `select` fields (summary_stats, ids) that caused HTTP 400
-  - accept full country names (France, Tunisia…) not just ISO codes
+Adaptations :
+  - Mesa 3.x  : super().__init__(model)  [plus de unique_id]
+  - DB         : SQLAlchemy + ResearcherRepository (PostgreSQL)
+  - Audit      : AgentRun log dans la DB
+  - Filtre URL : last_known_institutions.type:education  (comme ton code)
 """
-import time
+import mesa
+import requests
+from datetime import datetime
 from typing import List, Dict, Optional
 
-import requests
-
-from agents.base_agent import BaseAgent
 from database.connection import get_session
 from database.repositories import ResearcherRepository
-from config.settings import settings
+from database.models import AgentRun
 from utils.logger import logger
-from utils.helpers import retry, normalize_name, safe_int
 
 
 OPENALEX_BASE = "https://api.openalex.org"
-HEADERS = {"User-Agent": "UniversityObservatory/1.0 (mailto:observatory@university.edu)"}
-
-# Full country name → ISO 2-letter code mapping (extend as needed)
-COUNTRY_NAME_MAP = {
-    "france": "FR", "tunisia": "TN", "algeria": "DZ", "morocco": "MA",
-    "egypt": "EG", "germany": "DE", "italy": "IT", "spain": "ES",
-    "usa": "US", "united states": "US", "uk": "GB", "united kingdom": "GB",
-    "canada": "CA", "australia": "AU", "china": "CN", "japan": "JP",
-    "brazil": "BR", "india": "IN", "saudi arabia": "SA", "qatar": "QA",
-    "turkey": "TR", "netherlands": "NL", "belgium": "BE", "sweden": "SE",
-    "portugal": "PT", "switzerland": "CH", "poland": "PL",
-}
+HEADERS = {"User-Agent": "ResearchMAS/1.0"}
 
 
-def resolve_country_code(raw: str) -> str:
-    """Convert any country input (ISO or full name) to 2-letter ISO code."""
-    raw = raw.strip()
-    if len(raw) == 2:
-        return raw.upper()
-    return COUNTRY_NAME_MAP.get(raw.lower(), raw[:2].upper())
+class AgentResearcherScraper(mesa.Agent):
 
+    # Noms qui ressemblent à des topics, pas des personnes
+    BLACKLISTED_NAMES = {
+        "machine learning", "deep learning", "artificial intelligence",
+        "neural network", "data science", "computer vision",
+        "natural language processing", "reinforcement learning",
+        "big data", "internet of things", "cloud computing",
+    }
 
-class AgentResearcherScraper(BaseAgent):
+    def __init__(self, model: mesa.Model, keyword: str = "machine learning", max_pages: int = 3):
+        # Mesa 3.x — plus de unique_id
+        super().__init__(model)
+        self.keyword   = keyword
+        self.max_pages = max_pages
+        self.collected: List[Dict] = []
+        self.run_id: Optional[str] = None
 
-    def __init__(self):
-        super().__init__("AgentResearcherScraper")
-
-    # ─────────────────────────────────────────────────────────
-    # Public entry point
-    # ─────────────────────────────────────────────────────────
-    def run(
-        self,
-        country_code: str = None,
-        institution_name: str = None,
-        topic: str = None,
-        seed_names: List[str] = None,
-        lab_id: str = None,
-        max_authors: int = None,
-    ) -> Dict:
-        """
-        Automatically discover researchers. All parameters are OPTIONAL.
-
-        Priority:
-          1. institution_name → OpenAlex institution search
-          2. country_code     → all researchers from that country
-          3. topic            → researchers who publish on this topic
-          4. seed_names       → name-by-name DBLP lookup (fallback)
-        """
-        max_authors = max_authors or settings.agents.MAX_RESEARCHERS
-        created, updated = 0, 0
-        profiles: List[Dict] = []
-
-        # ── Strategy 1: by institution ────────────────────────
-        if institution_name:
-            logger.info(f"[{self.name}] Searching by institution: {institution_name}")
-            inst_id = self._resolve_institution(institution_name)
-            if inst_id:
-                profiles = self._paginate_authors(
-                    filter_str=f"last_known_institution.id:{inst_id}",
-                    max_n=max_authors,
-                )
-            else:
-                logger.warning(f"[{self.name}] Institution not found: {institution_name}")
-
-        # ── Strategy 2: by country ────────────────────────────
-        if not profiles and country_code:
-            iso = resolve_country_code(country_code)
-            logger.info(f"[{self.name}] Searching by country: {country_code} → ISO={iso}")
-            profiles = self._paginate_authors(
-                filter_str=f"last_known_institution.country_code:{iso}",
-                sort="cited_by_count:desc",
-                max_n=max_authors,
-            )
-
-        # ── Strategy 3: by topic ──────────────────────────────
-        if not profiles and topic:
-            logger.info(f"[{self.name}] Searching by topic: {topic}")
-            profiles = self._paginate_authors(
-                search=topic,
-                sort="cited_by_count:desc",
-                max_n=max_authors,
-            )
-
-        # ── Strategy 4: seed names via OpenAlex / DBLP ────────
-        if not profiles and seed_names:
-            logger.info(f"[{self.name}] Falling back to seed names ({len(seed_names)} names)")
-            for name in seed_names:
-                p = self._lookup_by_name(name)
-                if p:
-                    profiles.append(p)
-                time.sleep(0.3)
-
-        if not profiles:
-            logger.warning(
-                f"[{self.name}] No profiles discovered. "
-                "Check --country (ISO code like TN/FR), --institution, or --topic."
-            )
-            return {"created": 0, "updated": 0, "total": 0}
-
-        logger.info(f"[{self.name}] Discovered {len(profiles)} profiles — saving to DB …")
-
-        for profile in profiles:
-            if lab_id:
-                profile["lab_id"] = lab_id
-            c, u = self._upsert_researcher(profile)
-            created += c
-            updated += u
-            self._increment()
-
-        return {"created": created, "updated": updated, "total": len(profiles)}
+        # Paramètres injectés par ObservatoryModel avant step()
+        self.country_code:     Optional[str] = None
+        self.institution_name: Optional[str] = None
+        self.topic:            Optional[str] = None
+        self.seed_names:       List[str]     = []
+        self.lab_id:           Optional[str] = None
+        self.max_authors:      int           = 200
 
     # ─────────────────────────────────────────────────────────
-    # Resolve institution name → OpenAlex ID
+    # VALIDATION — identique à ton code original
     # ─────────────────────────────────────────────────────────
-    @retry(max_attempts=3, delay=2.0)
-    def _resolve_institution(self, name: str) -> Optional[str]:
-        resp = requests.get(
-            f"{OPENALEX_BASE}/institutions",
-            params={"search": name, "per-page": 1},
-            headers=HEADERS,
-            timeout=15,
+    def is_valid_researcher(self, author: dict) -> bool:
+        name = author.get("display_name", "").strip()
+
+        # Doit avoir au moins prénom + nom
+        if not name or len(name.split()) < 2:
+            return False
+
+        # Pas de chiffres dans le nom
+        if any(char.isdigit() for char in name):
+            return False
+
+        # Le keyword ne doit pas être dans le nom
+        if self.keyword.lower() in name.lower():
+            return False
+
+        # Blacklist des noms qui sont des topics
+        if name.lower() in self.BLACKLISTED_NAMES:
+            return False
+
+        # Filtre les comptes institutionnels (trop de publications)
+        if author.get("works_count", 0) > 5000:
+            return False
+
+        return True
+
+    # ─────────────────────────────────────────────────────────
+    # PARSE — identique à ton code original
+    # ─────────────────────────────────────────────────────────
+    def parse_author(self, author: dict) -> dict:
+        # x_concepts contient les domaines de recherche avec un score
+        concepts = author.get("x_concepts", [])
+        expertise = ", ".join(
+            c["display_name"]
+            for c in concepts[:5]
+            if c.get("score", 0) > 0.1
         )
-        resp.raise_for_status()
-        results = resp.json().get("results", [])
-        if results:
-            inst = results[0]
-            # Return just the short ID (e.g. I123456789)
-            inst_id = inst["id"].split("/")[-1]
-            logger.info(f"[{self.name}] Resolved: {inst['display_name']} → {inst_id}")
-            return inst_id
-        return None
-
-    # ─────────────────────────────────────────────────────────
-    # Core paginator — works for filter, search, or both
-    # ─────────────────────────────────────────────────────────
-    def _paginate_authors(
-        self,
-        filter_str: str = None,
-        search: str = None,
-        sort: str = "cited_by_count:desc",
-        max_n: int = 200,
-    ) -> List[Dict]:
-        profiles = []
-        page = 1
-        per_page = min(50, max_n)
-
-        while len(profiles) < max_n:
-            # Only request fields that OpenAlex actually supports on /authors
-            params = {
-                "per-page": per_page,
-                "page": page,
-                "sort": sort,
-                "select": "id,display_name,last_known_institution,works_count,cited_by_count,h_index,orcid",
-            }
-            if filter_str:
-                params["filter"] = filter_str
-            if search:
-                params["search"] = search
-
-            try:
-                resp = requests.get(
-                    f"{OPENALEX_BASE}/authors",
-                    params=params,
-                    headers=HEADERS,
-                    timeout=20,
-                )
-
-                # Log actual URL on error for easier debugging
-                if not resp.ok:
-                    logger.error(
-                        f"[{self.name}] OpenAlex HTTP {resp.status_code} — "
-                        f"URL: {resp.url}\nBody: {resp.text[:300]}"
-                    )
-                    break
-
-                data = resp.json()
-                results = data.get("results", [])
-
-                if not results:
-                    logger.info(f"[{self.name}] No results on page {page} — stopping.")
-                    break
-
-                for author in results:
-                    profiles.append(self._parse_author(author))
-
-                total = data.get("meta", {}).get("count", 0)
-                logger.info(
-                    f"[{self.name}] Page {page}: +{len(results)} authors "
-                    f"({len(profiles)}/{min(max_n, total)} collected, {total} available)"
-                )
-
-                if len(profiles) >= min(max_n, total) or len(results) < per_page:
-                    break
-
-                page += 1
-                time.sleep(0.15)
-
-            except Exception as e:
-                logger.warning(f"[{self.name}] Error on page {page}: {e}")
-                break
-
-        return profiles[:max_n]
-
-    # ─────────────────────────────────────────────────────────
-    # Parse single OpenAlex author → DB dict
-    # ─────────────────────────────────────────────────────────
-    def _parse_author(self, author: Dict) -> Dict:
-        inst = author.get("last_known_institution") or {}
-        orcid_raw = author.get("orcid") or ""
-        orcid = orcid_raw.replace("https://orcid.org/", "").strip() or None
 
         return {
-            "name": author.get("display_name", "Unknown"),
-            "department": inst.get("display_name"),
-            "h_index": safe_int(author.get("h_index")),
-            "total_citations": safe_int(author.get("cited_by_count")),
-            "publications": safe_int(author.get("works_count")),
-            "orcid": orcid,
-            # Store full OpenAlex URL as profile_url for later pub fetching
-            "profile_url": author.get("id"),
+            "openalex_id": author.get("id", ""),
+            "name":        author.get("display_name", "Unknown"),
+            "citations":   author.get("cited_by_count", 0),
+            "h_index":     author.get("summary_stats", {}).get("h_index", 0),
+            "works_count": author.get("works_count", 0),
+            "expertise":   expertise or self.keyword,
         }
 
     # ─────────────────────────────────────────────────────────
-    # Name-based lookup (fallback for seed_names)
+    # FETCH PAGE — même structure que ton code original
     # ─────────────────────────────────────────────────────────
-    def _lookup_by_name(self, name: str) -> Optional[Dict]:
-        # 1. Try OpenAlex
+    def fetch_page(self, page: int) -> list:
         try:
-            resp = requests.get(
-                f"{OPENALEX_BASE}/authors",
-                params={"search": name, "per-page": 1,
-                        "select": "id,display_name,last_known_institution,works_count,cited_by_count,h_index,orcid"},
-                headers=HEADERS,
-                timeout=10,
-            )
-            if resp.ok:
-                results = resp.json().get("results", [])
-                if results:
-                    return self._parse_author(results[0])
-        except Exception as e:
-            logger.debug(f"OpenAlex name lookup failed for {name}: {e}")
+            # Construire le filtre selon les paramètres disponibles
+            if self.country_code:
+                filter_str = f"last_known_institutions.country_code:{self.country_code.upper()},last_known_institutions.type:education"
+            elif self.institution_name:
+                inst_id = self._resolve_institution(self.institution_name)
+                filter_str = f"last_known_institutions.id:{inst_id}" if inst_id else "last_known_institutions.type:education"
+            else:
+                # Défaut — ton filtre original
+                filter_str = "last_known_institutions.type:education"
 
-        # 2. Try DBLP
-        try:
-            resp = requests.get(
-                "https://dblp.org/search/author/api",
-                params={"q": name, "format": "json", "h": 1},
-                headers=HEADERS,
-                timeout=10,
+            url = (
+                f"{OPENALEX_BASE}/authors"
+                f"?filter={filter_str}"
+                f"&sort=cited_by_count:desc"
+                f"&per-page=25&page={page}"
             )
-            if resp.ok:
-                hits = resp.json().get("result", {}).get("hits", {}).get("hit", [])
-                if hits:
-                    info = hits[0].get("info", {})
-                    return {
-                        "name": info.get("author", name),
-                        "dblp_pid": info.get("pid"),
-                        "profile_url": info.get("url"),
-                    }
-        except Exception as e:
-            logger.debug(f"DBLP lookup failed for {name}: {e}")
+            response = requests.get(url, timeout=15, headers=HEADERS)
+            response.raise_for_status()
+            results = response.json().get("results", [])
+            return results
 
-        return None
+        except requests.RequestException as e:
+            print(f"[AgentResearcherScraper] Warning: page {page} failed — {e}")
+            return []
 
     # ─────────────────────────────────────────────────────────
-    # DB upsert
+    # MESA STEP — même logique que ton code original + sauvegarde DB
     # ─────────────────────────────────────────────────────────
-    def _upsert_researcher(self, profile: Dict):
-        created, updated = 0, 0
+    def step(self):
+        self._log_start()
+        self.collected = []
+
+        for page in range(1, self.max_pages + 1):
+            results = self.fetch_page(page)
+            if not results:
+                break
+
+            for author in results:
+                if self.is_valid_researcher(author):
+                    researcher_data = self.parse_author(author)
+                    self.collected.append(researcher_data)
+                    self._save_researcher(researcher_data)
+
+        print(f"[AgentResearcherScraper] Collected and saved {len(self.collected)} researchers for '{self.keyword}'")
+        logger.info(f"[AgentResearcherScraper] {len(self.collected)} researchers saved")
+        self._log_finish(records=len(self.collected))
+
+        # Notifier le modèle Mesa
+        self.model.on_agent_done("AgentResearcherScraper", {
+            "collected": len(self.collected),
+            "keyword":   self.keyword,
+        })
+
+    # ─────────────────────────────────────────────────────────
+    # SAVE — adapté pour notre DB PostgreSQL
+    # (ton code utilisait session.add directement, on passe par le repo)
+    # ─────────────────────────────────────────────────────────
+    def _save_researcher(self, data: dict):
+        """Upsert un chercheur en DB (comme ton session.add + commit)."""
         with get_session() as session:
             repo = ResearcherRepository(session)
 
+            # Chercher par openalex_id stocké dans profile_url
             existing = None
-            if profile.get("orcid"):
-                hits = repo.search(profile["name"])
-                existing = next((r for r in hits if r.orcid == profile["orcid"]), None)
+            candidates = repo.search(data["name"])
+            for r in candidates:
+                if r.profile_url == data["openalex_id"]:
+                    existing = r
+                    break
 
-            if not existing:
-                candidates = repo.search(normalize_name(profile["name"]))
-                if candidates:
-                    existing = candidates[0]
+            db_record = {
+                "name":            data["name"],
+                "h_index":         data["h_index"],
+                "total_citations": data["citations"],
+                "publications":    data["works_count"],
+                "profile_url":     data["openalex_id"],   # stocke l'ID OpenAlex
+                "department":      data["expertise"][:255] if data["expertise"] else "Unknown",
+                "lab_id":          self.lab_id,
+            }
 
             if existing:
-                repo.update(existing.researcher_id, profile)
-                updated += 1
+                repo.update(existing.researcher_id, db_record)
             else:
-                repo.create(profile)
-                created += 1
+                repo.create(db_record)
 
-        return created, updated
+    # ─────────────────────────────────────────────────────────
+    # Résolution institution → OpenAlex ID
+    # ─────────────────────────────────────────────────────────
+    def _resolve_institution(self, name: str) -> Optional[str]:
+        try:
+            resp = requests.get(
+                f"{OPENALEX_BASE}/institutions",
+                params={"search": name, "per-page": 1},
+                headers=HEADERS,
+                timeout=15,
+            )
+            resp.raise_for_status()
+            results = resp.json().get("results", [])
+            if results:
+                return results[0]["id"].split("/")[-1]
+        except Exception:
+            pass
+        return None
+
+    # ─────────────────────────────────────────────────────────
+    # Audit log DB
+    # ─────────────────────────────────────────────────────────
+    def _log_start(self):
+        with get_session() as session:
+            run = AgentRun(agent_name="AgentResearcherScraper", status="started")
+            session.add(run)
+            session.flush()
+            self.run_id = run.run_id
+
+    def _log_finish(self, records: int = 0, error: str = None):
+        with get_session() as session:
+            run = session.query(AgentRun).filter_by(run_id=self.run_id).first()
+            if run:
+                run.status            = "completed" if not error else "failed"
+                run.records_processed = records
+                run.error_message     = error
+                run.finished_at       = datetime.utcnow()

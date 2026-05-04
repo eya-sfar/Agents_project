@@ -546,3 +546,350 @@ Body: {"error":"Invalid query parameters error.","message":"last_known_instituti
 2026-05-02 19:38:58 | INFO     | agents.agent_coordinator:run:117 - Summary: {'labs': {'labs_created': 0}, 'researchers': {'created': 0, 'updated': 0, 'total': 0}, 'publications': {'total_new_publications': 0}, 'expertise': {'researchers_processed': 12, 'expertise_entries': 21}, 'clusters': {'clusters': 8, 'researchers_clustered': 12}, 'collaborations': {'recommendations': 29}, 'negotiations': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
 2026-05-02 19:38:58 | INFO     | agents.agent_coordinator:run:118 - ============================================================
 2026-05-02 19:38:58 | INFO     | agents.base_agent:_log_finish:71 - [AgentCoordinator] Run completed — 0 records processed
+2026-05-02 23:19:41 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 23:19:41 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 23:19:41 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 23:21:53 | INFO     | __main__:main:77 - Initialisation de la base de données …
+2026-05-02 23:21:53 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 23:21:53 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 23:21:53 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 23:21:53 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 23:21:53 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 23:21:53 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 23:21:53 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 23:21:53 | INFO     | agents.mas_model:__init__:128 - [ObservatoryModel] Initialized — 7 agents in pipeline
+2026-05-02 23:21:53 | INFO     | agents.mas_model:run_pipeline:151 - ============================================================
+2026-05-02 23:21:53 | INFO     | agents.mas_model:run_pipeline:152 - [ObservatoryModel] PIPELINE START
+2026-05-02 23:21:53 | INFO     | agents.mas_model:run_pipeline:153 - ============================================================
+2026-05-02 23:21:53 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 1/7 [Scraping] → AgentLabScraper
+2026-05-02 23:21:54 | INFO     | agents.agent_lab_scraper:step:76 - [AgentLabScraper] step() — 0 labs collectés, 0 créés en DB
+2026-05-02 23:21:54 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 2/7 [Scraping] → AgentResearcherScraper
+2026-05-02 23:21:54 | INFO     | agents.agent_researcher_scraper:step:88 - [AgentResearcherScraper] By country: France → FR
+2026-05-02 23:21:55 | WARNING  | agents.agent_researcher_scraper:fetch_page:158 - [AgentResearcherScraper] HTTP 400 page 1 — URL: https://api.openalex.org/authors?per-page=25&page=1&sort=cited_by_count%3Adesc&select=id%2Cdisplay_name%2Clast_known_institution%2Cworks_count%2Ccited_by_count%2Ch_index%2Corcid&filter=last_known_institution.country_code%3AFR
+{"error":"Invalid query parameters error.","message":"last_known_institution is not a valid select field. Valid fields for select are: id, orcid, display_name, raw_author_names, full_name, relevance_s
+2026-05-02 23:21:55 | WARNING  | agents.agent_researcher_scraper:step:112 - [AgentResearcherScraper] Aucun profil trouvé. Vérifie --country (ex: TN), --institution, ou --topic.
+2026-05-02 23:21:55 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 3/7 [Scraping] → AgentPublicationScraper
+2026-05-02 23:21:55 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Amira Bouaziz
+2026-05-02 23:21:56 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Prof. Karim Ben Ali
+2026-05-02 23:21:57 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Leila Mansouri
+2026-05-02 23:21:58 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Youssef Trabelsi
+2026-05-02 23:21:58 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Prof. Sonia Khelifi
+2026-05-02 23:21:59 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Mohamed Jarray
+2026-05-02 23:22:00 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Nadia Zouari
+2026-05-02 23:22:00 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Prof. Ali Ouertani
+2026-05-02 23:22:01 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Fatma Mejri
+2026-05-02 23:22:01 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Bilel Hamdi
+2026-05-02 23:22:03 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Prof. Rania Chaabane
+2026-05-02 23:22:03 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Omar Mabrouk
+2026-05-02 23:22:04 | INFO     | agents.agent_publication_scraper:step:75 - [AgentPublicationScraper] step() — 0 pubs collectées, 0 nouvelles
+2026-05-02 23:22:04 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 4/7 [Analysis] → AgentExpertiseMatcherMesa
+2026-05-02 23:22:04 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=a0c630df-69f9-409b-abb8-1ee8134fccba)
+2026-05-02 23:22:04 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 12 records processed
+2026-05-02 23:22:04 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 5/7 [Analysis] → AgentClusterMesa
+2026-05-02 23:22:04 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=6dafe400-8efe-44de-872d-1c8e64ea914a)
+2026-05-02 23:22:41 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 12 researchers.
+2026-05-02 23:22:41 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 12 records processed
+2026-05-02 23:22:41 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 6/7 [Analysis] → AgentCollabAdvisorMesa
+2026-05-02 23:22:41 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=cd84cce3-e3a5-4ba1-8094-8a7ef859f9fd)
+2026-05-02 23:22:42 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 29 collaboration recommendations.
+2026-05-02 23:22:42 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 29 records processed
+2026-05-02 23:22:42 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 7/7 [Analysis] → AgentNegotiatorMesa
+2026-05-02 23:22:42 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=c6e38f2b-b629-431a-b8fd-b183039a5900)
+2026-05-02 23:22:42 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 23:22:42 | INFO     | agents.mas_model:run_pipeline:158 - ============================================================
+2026-05-02 23:22:42 | INFO     | agents.mas_model:run_pipeline:159 - [ObservatoryModel] PIPELINE COMPLETE
+2026-05-02 23:22:42 | INFO     | agents.mas_model:run_pipeline:160 - Report: {'AgentLabScraper': {'labs_collected': 0, 'labs_created': 0}, 'AgentResearcherScraper': {'created': 0, 'updated': 0}, 'AgentPublicationScraper': {'publications_collected': 0, 'new_publications': 0}, 'AgentExpertiseMatcher': {'researchers_processed': 12, 'expertise_entries': 21}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 12}, 'AgentCollabAdvisor': {'recommendations': 29}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:22:42 | INFO     | agents.mas_model:run_pipeline:161 - ============================================================
+2026-05-02 23:22:42 | INFO     | __main__:run_once:33 - Pipeline report: {'AgentLabScraper': {'labs_collected': 0, 'labs_created': 0}, 'AgentResearcherScraper': {'created': 0, 'updated': 0}, 'AgentPublicationScraper': {'publications_collected': 0, 'new_publications': 0}, 'AgentExpertiseMatcher': {'researchers_processed': 12, 'expertise_entries': 21}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 12}, 'AgentCollabAdvisor': {'recommendations': 29}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:23:51 | INFO     | __main__:main:77 - Initialisation de la base de données …
+2026-05-02 23:23:51 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 23:23:51 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 23:23:51 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 23:23:51 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 23:23:51 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 23:23:51 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 23:23:51 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 23:23:51 | INFO     | agents.mas_model:__init__:128 - [ObservatoryModel] Initialized — 7 agents in pipeline
+2026-05-02 23:23:51 | INFO     | agents.mas_model:run_pipeline:151 - ============================================================
+2026-05-02 23:23:51 | INFO     | agents.mas_model:run_pipeline:152 - [ObservatoryModel] PIPELINE START
+2026-05-02 23:23:51 | INFO     | agents.mas_model:run_pipeline:153 - ============================================================
+2026-05-02 23:23:51 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 1/7 [Scraping] → AgentLabScraper
+2026-05-02 23:23:56 | INFO     | agents.agent_lab_scraper:step:76 - [AgentLabScraper] step() — 125 labs collectés, 123 créés en DB
+2026-05-02 23:23:56 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 2/7 [Scraping] → AgentResearcherScraper
+2026-05-02 23:23:56 | INFO     | agents.agent_researcher_scraper:step:88 - [AgentResearcherScraper] By country: FR → FR
+2026-05-02 23:23:57 | WARNING  | agents.agent_researcher_scraper:fetch_page:158 - [AgentResearcherScraper] HTTP 400 page 1 — URL: https://api.openalex.org/authors?per-page=25&page=1&sort=cited_by_count%3Adesc&select=id%2Cdisplay_name%2Clast_known_institution%2Cworks_count%2Ccited_by_count%2Ch_index%2Corcid&filter=last_known_institution.country_code%3AFR
+{"error":"Invalid query parameters error.","message":"last_known_institution is not a valid select field. Valid fields for select are: id, orcid, display_name, raw_author_names, full_name, relevance_s
+2026-05-02 23:23:57 | WARNING  | agents.agent_researcher_scraper:step:112 - [AgentResearcherScraper] Aucun profil trouvé. Vérifie --country (ex: TN), --institution, ou --topic.
+2026-05-02 23:23:57 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 3/7 [Scraping] → AgentPublicationScraper
+2026-05-02 23:23:57 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Amira Bouaziz
+2026-05-02 23:23:58 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Prof. Karim Ben Ali
+2026-05-02 23:23:59 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Leila Mansouri
+2026-05-02 23:23:59 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Youssef Trabelsi
+2026-05-02 23:24:00 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Prof. Sonia Khelifi
+2026-05-02 23:24:00 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Mohamed Jarray
+2026-05-02 23:24:01 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Nadia Zouari
+2026-05-02 23:24:02 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Prof. Ali Ouertani
+2026-05-02 23:24:02 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Fatma Mejri
+2026-05-02 23:24:03 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Bilel Hamdi
+2026-05-02 23:24:03 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Prof. Rania Chaabane
+2026-05-02 23:24:04 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Omar Mabrouk
+2026-05-02 23:24:05 | INFO     | agents.agent_publication_scraper:step:75 - [AgentPublicationScraper] step() — 0 pubs collectées, 0 nouvelles
+2026-05-02 23:24:05 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 4/7 [Analysis] → AgentExpertiseMatcherMesa
+2026-05-02 23:24:05 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=aba1043c-b175-47d7-8d62-744dd6d99bba)
+2026-05-02 23:24:05 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 12 records processed
+2026-05-02 23:24:05 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 5/7 [Analysis] → AgentClusterMesa
+2026-05-02 23:24:05 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=dccb20e5-8f8b-4c8c-8170-0b2393db22f8)
+2026-05-02 23:24:13 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 12 researchers.
+2026-05-02 23:24:13 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 12 records processed
+2026-05-02 23:24:13 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 6/7 [Analysis] → AgentCollabAdvisorMesa
+2026-05-02 23:24:13 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=0e9a424a-3e2d-4752-ba0e-db0b2432fbfe)
+2026-05-02 23:24:13 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 29 collaboration recommendations.
+2026-05-02 23:24:13 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 29 records processed
+2026-05-02 23:24:13 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 7/7 [Analysis] → AgentNegotiatorMesa
+2026-05-02 23:24:13 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=0659e6dc-7350-4312-9d3f-806e2b3b83fd)
+2026-05-02 23:24:13 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 23:24:13 | INFO     | agents.mas_model:run_pipeline:158 - ============================================================
+2026-05-02 23:24:13 | INFO     | agents.mas_model:run_pipeline:159 - [ObservatoryModel] PIPELINE COMPLETE
+2026-05-02 23:24:13 | INFO     | agents.mas_model:run_pipeline:160 - Report: {'AgentLabScraper': {'labs_collected': 125, 'labs_created': 123}, 'AgentResearcherScraper': {'created': 0, 'updated': 0}, 'AgentPublicationScraper': {'publications_collected': 0, 'new_publications': 0}, 'AgentExpertiseMatcher': {'researchers_processed': 12, 'expertise_entries': 21}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 12}, 'AgentCollabAdvisor': {'recommendations': 29}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:24:13 | INFO     | agents.mas_model:run_pipeline:161 - ============================================================
+2026-05-02 23:24:13 | INFO     | __main__:run_once:33 - Pipeline report: {'AgentLabScraper': {'labs_collected': 125, 'labs_created': 123}, 'AgentResearcherScraper': {'created': 0, 'updated': 0}, 'AgentPublicationScraper': {'publications_collected': 0, 'new_publications': 0}, 'AgentExpertiseMatcher': {'researchers_processed': 12, 'expertise_entries': 21}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 12}, 'AgentCollabAdvisor': {'recommendations': 29}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:29:59 | INFO     | __main__:main:77 - Initialisation de la base de données …
+2026-05-02 23:29:59 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 23:29:59 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 23:29:59 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 23:29:59 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 23:29:59 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 23:29:59 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 23:29:59 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 23:29:59 | INFO     | agents.mas_model:__init__:128 - [ObservatoryModel] Initialized — 7 agents in pipeline
+2026-05-02 23:29:59 | INFO     | agents.mas_model:run_pipeline:151 - ============================================================
+2026-05-02 23:29:59 | INFO     | agents.mas_model:run_pipeline:152 - [ObservatoryModel] PIPELINE START
+2026-05-02 23:29:59 | INFO     | agents.mas_model:run_pipeline:153 - ============================================================
+2026-05-02 23:29:59 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 1/7 [Scraping] → AgentLabScraper
+2026-05-02 23:30:08 | INFO     | agents.agent_lab_scraper:step:76 - [AgentLabScraper] step() — 125 labs collectés, 2 créés en DB
+2026-05-02 23:30:08 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 2/7 [Scraping] → AgentResearcherScraper
+2026-05-02 23:30:08 | INFO     | agents.agent_researcher_scraper:step:88 - [AgentResearcherScraper] By country: FR → FR
+2026-05-02 23:30:08 | WARNING  | agents.agent_researcher_scraper:fetch_page:158 - [AgentResearcherScraper] HTTP 400 page 1 — URL: https://api.openalex.org/authors?per-page=25&page=1&sort=cited_by_count%3Adesc&filter=last_known_institution.country_code%3AFR
+{"error":"Invalid query parameters error.","message":"last_known_institution.country_code is not a valid field. Valid fields are underscore or hyphenated versions of: affiliations.institution.country_
+2026-05-02 23:30:08 | WARNING  | agents.agent_researcher_scraper:step:112 - [AgentResearcherScraper] Aucun profil trouvé. Vérifie --country (ex: TN), --institution, ou --topic.
+2026-05-02 23:30:08 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 3/7 [Scraping] → AgentPublicationScraper
+2026-05-02 23:30:08 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Amira Bouaziz
+2026-05-02 23:30:09 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Prof. Karim Ben Ali
+2026-05-02 23:30:10 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Leila Mansouri
+2026-05-02 23:30:11 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Youssef Trabelsi
+2026-05-02 23:30:11 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Prof. Sonia Khelifi
+2026-05-02 23:30:12 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Mohamed Jarray
+2026-05-02 23:30:13 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Nadia Zouari
+2026-05-02 23:30:14 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Prof. Ali Ouertani
+2026-05-02 23:30:14 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Fatma Mejri
+2026-05-02 23:30:16 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Bilel Hamdi
+2026-05-02 23:30:17 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Prof. Rania Chaabane
+2026-05-02 23:30:17 | INFO     | agents.agent_publication_scraper:step:68 - [AgentPublicationScraper] Fetching pubs for: Dr. Omar Mabrouk
+2026-05-02 23:30:18 | INFO     | agents.agent_publication_scraper:step:75 - [AgentPublicationScraper] step() — 0 pubs collectées, 0 nouvelles
+2026-05-02 23:30:18 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 4/7 [Analysis] → AgentExpertiseMatcherMesa
+2026-05-02 23:30:18 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=81edfcda-1e0e-4b5f-b71c-ef87a2498bc7)
+2026-05-02 23:30:18 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 12 records processed
+2026-05-02 23:30:18 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 5/7 [Analysis] → AgentClusterMesa
+2026-05-02 23:30:18 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=0c152d77-469b-4f6c-bbb9-cf20cc421d71)
+2026-05-02 23:30:25 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 12 researchers.
+2026-05-02 23:30:25 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 12 records processed
+2026-05-02 23:30:25 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 6/7 [Analysis] → AgentCollabAdvisorMesa
+2026-05-02 23:30:25 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=6c780b09-a6bf-450f-a9cb-08abe1a1679c)
+2026-05-02 23:30:25 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 29 collaboration recommendations.
+2026-05-02 23:30:25 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 29 records processed
+2026-05-02 23:30:25 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 7/7 [Analysis] → AgentNegotiatorMesa
+2026-05-02 23:30:25 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=bf1ecfef-7f3e-4f51-a495-aafa92850ca7)
+2026-05-02 23:30:25 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 23:30:25 | INFO     | agents.mas_model:run_pipeline:158 - ============================================================
+2026-05-02 23:30:25 | INFO     | agents.mas_model:run_pipeline:159 - [ObservatoryModel] PIPELINE COMPLETE
+2026-05-02 23:30:25 | INFO     | agents.mas_model:run_pipeline:160 - Report: {'AgentLabScraper': {'labs_collected': 125, 'labs_created': 2}, 'AgentResearcherScraper': {'created': 0, 'updated': 0}, 'AgentPublicationScraper': {'publications_collected': 0, 'new_publications': 0}, 'AgentExpertiseMatcher': {'researchers_processed': 12, 'expertise_entries': 21}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 12}, 'AgentCollabAdvisor': {'recommendations': 29}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:30:25 | INFO     | agents.mas_model:run_pipeline:161 - ============================================================
+2026-05-02 23:30:25 | INFO     | __main__:run_once:33 - Pipeline report: {'AgentLabScraper': {'labs_collected': 125, 'labs_created': 2}, 'AgentResearcherScraper': {'created': 0, 'updated': 0}, 'AgentPublicationScraper': {'publications_collected': 0, 'new_publications': 0}, 'AgentExpertiseMatcher': {'researchers_processed': 12, 'expertise_entries': 21}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 12}, 'AgentCollabAdvisor': {'recommendations': 29}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:38:19 | INFO     | __main__:main:77 - Initialisation de la base de données …
+2026-05-02 23:38:19 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 23:38:19 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 23:38:19 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 23:38:19 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 23:38:19 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 23:38:19 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 23:38:19 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 23:38:19 | INFO     | agents.mas_model:__init__:128 - [ObservatoryModel] Initialized — 7 agents in pipeline
+2026-05-02 23:38:19 | INFO     | agents.mas_model:run_pipeline:151 - ============================================================
+2026-05-02 23:38:19 | INFO     | agents.mas_model:run_pipeline:152 - [ObservatoryModel] PIPELINE START
+2026-05-02 23:38:19 | INFO     | agents.mas_model:run_pipeline:153 - ============================================================
+2026-05-02 23:38:19 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 1/7 [Scraping] → AgentLabScraper
+2026-05-02 23:38:26 | INFO     | agents.agent_lab_scraper:step:109 - [AgentLabScraper] 125 labs saved
+2026-05-02 23:38:26 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 2/7 [Scraping] → AgentResearcherScraper
+2026-05-02 23:38:35 | INFO     | agents.agent_researcher_scraper:step:155 - [AgentResearcherScraper] 125 researchers saved
+2026-05-02 23:38:35 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 3/7 [Scraping] → AgentPublicationScraper
+2026-05-02 23:38:43 | INFO     | agents.agent_publication_scraper:step:127 - [AgentPublicationScraper] 125 publications saved
+2026-05-02 23:38:43 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 4/7 [Analysis] → AgentExpertiseMatcherMesa
+2026-05-02 23:38:43 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=e514eae9-1340-40b7-9c39-4102f742d949)
+2026-05-02 23:38:44 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 137 records processed
+2026-05-02 23:38:44 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 5/7 [Analysis] → AgentClusterMesa
+2026-05-02 23:38:44 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=793969c0-3d38-4df5-86c4-8ac3f4443b05)
+2026-05-02 23:38:54 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 137 researchers.
+2026-05-02 23:38:54 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 137 records processed
+2026-05-02 23:38:54 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 6/7 [Analysis] → AgentCollabAdvisorMesa
+2026-05-02 23:38:54 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=62fa95e8-2fc1-4d01-9a6c-82b4139c0a06)
+2026-05-02 23:38:56 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 338 collaboration recommendations.
+2026-05-02 23:38:56 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 338 records processed
+2026-05-02 23:38:56 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 7/7 [Analysis] → AgentNegotiatorMesa
+2026-05-02 23:38:56 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=6c0aca38-efe5-43f0-97e9-566ea4ccf16b)
+2026-05-02 23:38:56 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 23:38:56 | INFO     | agents.mas_model:run_pipeline:158 - ============================================================
+2026-05-02 23:38:56 | INFO     | agents.mas_model:run_pipeline:159 - [ObservatoryModel] PIPELINE COMPLETE
+2026-05-02 23:38:56 | INFO     | agents.mas_model:run_pipeline:160 - Report: {'AgentLabScraper': {'collected': 125}, 'AgentResearcherScraper': {'collected': 125, 'keyword': 'machine learning'}, 'AgentPublicationScraper': {'collected': 125}, 'AgentExpertiseMatcher': {'researchers_processed': 137, 'expertise_entries': 24}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 137}, 'AgentCollabAdvisor': {'recommendations': 338}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:38:56 | INFO     | agents.mas_model:run_pipeline:161 - ============================================================
+2026-05-02 23:38:56 | INFO     | __main__:run_once:33 - Pipeline report: {'AgentLabScraper': {'collected': 125}, 'AgentResearcherScraper': {'collected': 125, 'keyword': 'machine learning'}, 'AgentPublicationScraper': {'collected': 125}, 'AgentExpertiseMatcher': {'researchers_processed': 137, 'expertise_entries': 24}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 137}, 'AgentCollabAdvisor': {'recommendations': 338}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:45:19 | INFO     | __main__:main:77 - Initialisation de la base de données …
+2026-05-02 23:45:19 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 23:45:19 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 23:45:19 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 23:45:20 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 23:45:20 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 23:45:20 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 23:45:20 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 23:45:20 | INFO     | agents.mas_model:__init__:128 - [ObservatoryModel] Initialized — 7 agents in pipeline
+2026-05-02 23:45:20 | INFO     | agents.mas_model:run_pipeline:151 - ============================================================
+2026-05-02 23:45:20 | INFO     | agents.mas_model:run_pipeline:152 - [ObservatoryModel] PIPELINE START
+2026-05-02 23:45:20 | INFO     | agents.mas_model:run_pipeline:153 - ============================================================
+2026-05-02 23:45:20 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 1/7 [Scraping] → AgentLabScraper
+2026-05-02 23:45:21 | INFO     | agents.agent_lab_scraper:step:109 - [AgentLabScraper] 0 labs saved
+2026-05-02 23:45:21 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 2/7 [Scraping] → AgentResearcherScraper
+2026-05-02 23:45:22 | INFO     | agents.agent_researcher_scraper:step:155 - [AgentResearcherScraper] 0 researchers saved
+2026-05-02 23:45:22 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 3/7 [Scraping] → AgentPublicationScraper
+2026-05-02 23:45:30 | INFO     | agents.agent_publication_scraper:step:127 - [AgentPublicationScraper] 125 publications saved
+2026-05-02 23:45:30 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 4/7 [Analysis] → AgentExpertiseMatcherMesa
+2026-05-02 23:45:30 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=0f362c24-ee8a-4fde-847a-780637b43f7c)
+2026-05-02 23:45:30 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 137 records processed
+2026-05-02 23:45:30 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 5/7 [Analysis] → AgentClusterMesa
+2026-05-02 23:45:31 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=487600c4-b1a3-442b-b1e8-b97739118f2c)
+2026-05-02 23:45:40 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 137 researchers.
+2026-05-02 23:45:40 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 137 records processed
+2026-05-02 23:45:40 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 6/7 [Analysis] → AgentCollabAdvisorMesa
+2026-05-02 23:45:40 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=c6f6c83f-9253-453b-b18e-66f7c1d08fdf)
+2026-05-02 23:45:41 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 338 collaboration recommendations.
+2026-05-02 23:45:41 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 338 records processed
+2026-05-02 23:45:41 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 7/7 [Analysis] → AgentNegotiatorMesa
+2026-05-02 23:45:41 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=eac725c7-865e-456f-a47a-3c1471661497)
+2026-05-02 23:45:41 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 23:45:41 | INFO     | agents.mas_model:run_pipeline:158 - ============================================================
+2026-05-02 23:45:41 | INFO     | agents.mas_model:run_pipeline:159 - [ObservatoryModel] PIPELINE COMPLETE
+2026-05-02 23:45:41 | INFO     | agents.mas_model:run_pipeline:160 - Report: {'AgentLabScraper': {'collected': 0}, 'AgentResearcherScraper': {'collected': 0, 'keyword': 'machine learning'}, 'AgentPublicationScraper': {'collected': 125}, 'AgentExpertiseMatcher': {'researchers_processed': 137, 'expertise_entries': 24}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 137}, 'AgentCollabAdvisor': {'recommendations': 338}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:45:41 | INFO     | agents.mas_model:run_pipeline:161 - ============================================================
+2026-05-02 23:45:41 | INFO     | __main__:run_once:33 - Pipeline report: {'AgentLabScraper': {'collected': 0}, 'AgentResearcherScraper': {'collected': 0, 'keyword': 'machine learning'}, 'AgentPublicationScraper': {'collected': 125}, 'AgentExpertiseMatcher': {'researchers_processed': 137, 'expertise_entries': 24}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 137}, 'AgentCollabAdvisor': {'recommendations': 338}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:46:22 | INFO     | __main__:main:77 - Initialisation de la base de données …
+2026-05-02 23:46:22 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 23:46:22 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 23:46:22 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 23:46:22 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 23:46:22 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 23:46:22 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 23:46:22 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 23:46:22 | INFO     | agents.mas_model:__init__:128 - [ObservatoryModel] Initialized — 7 agents in pipeline
+2026-05-02 23:46:22 | INFO     | agents.mas_model:run_pipeline:151 - ============================================================
+2026-05-02 23:46:22 | INFO     | agents.mas_model:run_pipeline:152 - [ObservatoryModel] PIPELINE START
+2026-05-02 23:46:22 | INFO     | agents.mas_model:run_pipeline:153 - ============================================================
+2026-05-02 23:46:22 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 1/7 [Scraping] → AgentLabScraper
+2026-05-02 23:46:24 | INFO     | agents.agent_lab_scraper:step:109 - [AgentLabScraper] 0 labs saved
+2026-05-02 23:46:24 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 2/7 [Scraping] → AgentResearcherScraper
+2026-05-02 23:46:24 | INFO     | agents.agent_researcher_scraper:step:155 - [AgentResearcherScraper] 0 researchers saved
+2026-05-02 23:46:24 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 3/7 [Scraping] → AgentPublicationScraper
+2026-05-02 23:46:32 | INFO     | agents.agent_publication_scraper:step:127 - [AgentPublicationScraper] 125 publications saved
+2026-05-02 23:46:32 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 4/7 [Analysis] → AgentExpertiseMatcherMesa
+2026-05-02 23:46:32 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=5d77d182-1415-4604-810a-52d4165b0dba)
+2026-05-02 23:46:32 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 137 records processed
+2026-05-02 23:46:32 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 5/7 [Analysis] → AgentClusterMesa
+2026-05-02 23:46:32 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=6521a52b-d1e1-44f9-971a-d46e8948e80a)
+2026-05-02 23:46:40 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 137 researchers.
+2026-05-02 23:46:40 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 137 records processed
+2026-05-02 23:46:40 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 6/7 [Analysis] → AgentCollabAdvisorMesa
+2026-05-02 23:46:40 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=f02c07be-deb0-499c-84e8-756792c5f7f6)
+2026-05-02 23:46:41 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 338 collaboration recommendations.
+2026-05-02 23:46:41 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 338 records processed
+2026-05-02 23:46:41 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 7/7 [Analysis] → AgentNegotiatorMesa
+2026-05-02 23:46:41 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=11ba091f-9b94-4a32-9bfe-09e27a1ccbba)
+2026-05-02 23:46:41 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 23:46:41 | INFO     | agents.mas_model:run_pipeline:158 - ============================================================
+2026-05-02 23:46:41 | INFO     | agents.mas_model:run_pipeline:159 - [ObservatoryModel] PIPELINE COMPLETE
+2026-05-02 23:46:41 | INFO     | agents.mas_model:run_pipeline:160 - Report: {'AgentLabScraper': {'collected': 0}, 'AgentResearcherScraper': {'collected': 0, 'keyword': 'machine learning'}, 'AgentPublicationScraper': {'collected': 125}, 'AgentExpertiseMatcher': {'researchers_processed': 137, 'expertise_entries': 24}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 137}, 'AgentCollabAdvisor': {'recommendations': 338}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:46:41 | INFO     | agents.mas_model:run_pipeline:161 - ============================================================
+2026-05-02 23:46:41 | INFO     | __main__:run_once:33 - Pipeline report: {'AgentLabScraper': {'collected': 0}, 'AgentResearcherScraper': {'collected': 0, 'keyword': 'machine learning'}, 'AgentPublicationScraper': {'collected': 125}, 'AgentExpertiseMatcher': {'researchers_processed': 137, 'expertise_entries': 24}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 137}, 'AgentCollabAdvisor': {'recommendations': 338}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:49:30 | INFO     | __main__:main:77 - Initialisation de la base de données …
+2026-05-02 23:49:30 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-02 23:49:30 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-02 23:49:30 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-02 23:49:30 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-02 23:49:30 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-02 23:49:30 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-02 23:49:30 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-02 23:49:30 | INFO     | agents.mas_model:__init__:128 - [ObservatoryModel] Initialized — 7 agents in pipeline
+2026-05-02 23:49:30 | INFO     | agents.mas_model:run_pipeline:151 - ============================================================
+2026-05-02 23:49:30 | INFO     | agents.mas_model:run_pipeline:152 - [ObservatoryModel] PIPELINE START
+2026-05-02 23:49:30 | INFO     | agents.mas_model:run_pipeline:153 - ============================================================
+2026-05-02 23:49:30 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 1/7 [Scraping] → AgentLabScraper
+2026-05-02 23:49:31 | INFO     | agents.agent_lab_scraper:step:109 - [AgentLabScraper] 0 labs saved
+2026-05-02 23:49:31 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 2/7 [Scraping] → AgentResearcherScraper
+2026-05-02 23:49:32 | INFO     | agents.agent_researcher_scraper:step:155 - [AgentResearcherScraper] 0 researchers saved
+2026-05-02 23:49:32 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 3/7 [Scraping] → AgentPublicationScraper
+2026-05-02 23:49:39 | INFO     | agents.agent_publication_scraper:step:127 - [AgentPublicationScraper] 125 publications saved
+2026-05-02 23:49:39 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 4/7 [Analysis] → AgentExpertiseMatcherMesa
+2026-05-02 23:49:39 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=ce432e09-f2b4-41ee-aa5c-38476a8dcf39)
+2026-05-02 23:49:40 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 137 records processed
+2026-05-02 23:49:40 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 5/7 [Analysis] → AgentClusterMesa
+2026-05-02 23:49:40 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=2f2df2cd-d5bc-4534-9e0e-f96953e3c0fe)
+2026-05-02 23:49:46 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 137 researchers.
+2026-05-02 23:49:46 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 137 records processed
+2026-05-02 23:49:46 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 6/7 [Analysis] → AgentCollabAdvisorMesa
+2026-05-02 23:49:46 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=511cbd59-bfa8-42d3-90a8-67367f63e47a)
+2026-05-02 23:49:48 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 338 collaboration recommendations.
+2026-05-02 23:49:48 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 338 records processed
+2026-05-02 23:49:48 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 7/7 [Analysis] → AgentNegotiatorMesa
+2026-05-02 23:49:48 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=85198e8c-d21a-421e-a3d5-7d71ee9e8060)
+2026-05-02 23:49:48 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-02 23:49:48 | INFO     | agents.mas_model:run_pipeline:158 - ============================================================
+2026-05-02 23:49:48 | INFO     | agents.mas_model:run_pipeline:159 - [ObservatoryModel] PIPELINE COMPLETE
+2026-05-02 23:49:48 | INFO     | agents.mas_model:run_pipeline:160 - Report: {'AgentLabScraper': {'collected': 0}, 'AgentResearcherScraper': {'collected': 0, 'keyword': 'machine learning'}, 'AgentPublicationScraper': {'collected': 125}, 'AgentExpertiseMatcher': {'researchers_processed': 137, 'expertise_entries': 24}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 137}, 'AgentCollabAdvisor': {'recommendations': 338}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-02 23:49:48 | INFO     | agents.mas_model:run_pipeline:161 - ============================================================
+2026-05-02 23:49:48 | INFO     | __main__:run_once:33 - Pipeline report: {'AgentLabScraper': {'collected': 0}, 'AgentResearcherScraper': {'collected': 0, 'keyword': 'machine learning'}, 'AgentPublicationScraper': {'collected': 125}, 'AgentExpertiseMatcher': {'researchers_processed': 137, 'expertise_entries': 24}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 137}, 'AgentCollabAdvisor': {'recommendations': 338}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-04 12:52:33 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-04 12:52:33 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-04 12:52:33 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-04 21:53:33 | INFO     | __main__:main:77 - Initialisation de la base de données …
+2026-05-04 21:53:33 | INFO     | database.connection:init_db:77 - Initialising database schema...
+2026-05-04 21:53:34 | INFO     | database.connection:init_db:85 - Connected to PostgreSQL: PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-05-04 21:53:34 | INFO     | database.connection:init_db:86 - Database schema ready.
+2026-05-04 21:53:34 | INFO     | agents.base_agent:__init__:23 - [AgentExpertiseMatcher] Initialized
+2026-05-04 21:53:34 | INFO     | agents.base_agent:__init__:23 - [AgentCluster] Initialized
+2026-05-04 21:53:34 | INFO     | agents.base_agent:__init__:23 - [AgentCollabAdvisor] Initialized
+2026-05-04 21:53:34 | INFO     | agents.base_agent:__init__:23 - [AgentNegotiator] Initialized
+2026-05-04 21:53:34 | INFO     | agents.mas_model:__init__:128 - [ObservatoryModel] Initialized — 7 agents in pipeline
+2026-05-04 21:53:34 | INFO     | agents.mas_model:run_pipeline:151 - ============================================================
+2026-05-04 21:53:34 | INFO     | agents.mas_model:run_pipeline:152 - [ObservatoryModel] PIPELINE START
+2026-05-04 21:53:34 | INFO     | agents.mas_model:run_pipeline:153 - ============================================================
+2026-05-04 21:53:34 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 1/7 [Scraping] → AgentLabScraper
+2026-05-04 21:53:35 | INFO     | agents.agent_lab_scraper:step:109 - [AgentLabScraper] 0 labs saved
+2026-05-04 21:53:35 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 2/7 [Scraping] → AgentResearcherScraper
+2026-05-04 21:53:35 | INFO     | agents.agent_researcher_scraper:step:155 - [AgentResearcherScraper] 0 researchers saved
+2026-05-04 21:53:35 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 3/7 [Scraping] → AgentPublicationScraper
+2026-05-04 22:00:23 | INFO     | agents.agent_publication_scraper:step:141 - [AgentPublicationScraper] 5739 publications saved
+2026-05-04 22:00:23 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 4/7 [Analysis] → AgentExpertiseMatcherMesa
+2026-05-04 22:00:23 | INFO     | agents.base_agent:_log_start:60 - [AgentExpertiseMatcher] Run started (id=53d570fc-767c-40e2-8746-e029c6a3dc31)
+2026-05-04 22:00:27 | INFO     | agents.base_agent:_log_finish:71 - [AgentExpertiseMatcher] Run completed — 137 records processed
+2026-05-04 22:00:27 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 5/7 [Analysis] → AgentClusterMesa
+2026-05-04 22:00:27 | INFO     | agents.base_agent:_log_start:60 - [AgentCluster] Run started (id=db6ddabe-3316-4874-82f2-6592b299bce6)
+2026-05-04 22:00:38 | INFO     | agents.agent_cluster:run:67 - [AgentCluster] Clustering done: 8 clusters from 137 researchers.
+2026-05-04 22:00:38 | INFO     | agents.base_agent:_log_finish:71 - [AgentCluster] Run completed — 137 records processed
+2026-05-04 22:00:38 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 6/7 [Analysis] → AgentCollabAdvisorMesa
+2026-05-04 22:00:39 | INFO     | agents.base_agent:_log_start:60 - [AgentCollabAdvisor] Run started (id=575f04fd-b845-424c-90dc-bbf6ba56f263)
+2026-05-04 22:00:41 | INFO     | agents.agent_collab_advisor:run:52 - [AgentCollabAdvisor] Generated 319 collaboration recommendations.
+2026-05-04 22:00:41 | INFO     | agents.base_agent:_log_finish:71 - [AgentCollabAdvisor] Run completed — 319 records processed
+2026-05-04 22:00:41 | INFO     | agents.mas_model:step:140 - [ObservatoryModel] ── Tick 7/7 [Analysis] → AgentNegotiatorMesa
+2026-05-04 22:00:41 | INFO     | agents.base_agent:_log_start:60 - [AgentNegotiator] Run started (id=6fa2897a-c24e-4dfe-a430-9c2d2f3108fc)
+2026-05-04 22:00:41 | INFO     | agents.base_agent:_log_finish:71 - [AgentNegotiator] Run completed — 20 records processed
+2026-05-04 22:00:41 | INFO     | agents.mas_model:run_pipeline:158 - ============================================================
+2026-05-04 22:00:41 | INFO     | agents.mas_model:run_pipeline:159 - [ObservatoryModel] PIPELINE COMPLETE
+2026-05-04 22:00:41 | INFO     | agents.mas_model:run_pipeline:160 - Report: {'AgentLabScraper': {'collected': 0}, 'AgentResearcherScraper': {'collected': 0, 'keyword': 'machine learning'}, 'AgentPublicationScraper': {'collected': 5739}, 'AgentExpertiseMatcher': {'researchers_processed': 137, 'expertise_entries': 149}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 137}, 'AgentCollabAdvisor': {'recommendations': 319}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
+2026-05-04 22:00:41 | INFO     | agents.mas_model:run_pipeline:161 - ============================================================
+2026-05-04 22:00:41 | INFO     | __main__:run_once:33 - Pipeline report: {'AgentLabScraper': {'collected': 0}, 'AgentResearcherScraper': {'collected': 0, 'keyword': 'machine learning'}, 'AgentPublicationScraper': {'collected': 5739}, 'AgentExpertiseMatcher': {'researchers_processed': 137, 'expertise_entries': 149}, 'AgentCluster': {'clusters': 8, 'researchers_clustered': 137}, 'AgentCollabAdvisor': {'recommendations': 319}, 'AgentNegotiator': {'negotiations_run': 20, 'agreements': 0, 'breakdowns': 20}}
